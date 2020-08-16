@@ -1,0 +1,19 @@
+@import "./../../../assets/abstracts/variables";
+
+.items {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    &:hover {
+        background-color: color(light2);
+    }
+    svg {
+        margin-left: 15px;
+    }
+}
+
+.paper::-webkit-scrollbar {
+    display: none;
+}
