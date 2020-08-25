@@ -14,11 +14,14 @@
         <title>{% block title %}Hackathon Site{% endblock %}</title>
         <link rel="stylesheet" type="text/css" href="{{ static('event/styles/css/styles.css') }}" />
 
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Sen:wght@400;700&display=swap" rel="stylesheet"/>
+        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet"/>
         {% block head_extends %}{% endblock %}
         {% endblock %}
     </head>
     <body>
-        <nav class="navbar primaryColor" role="navigation">
+        <nav class="navbar" role="navigation">
             <div class="nav-wrapper container">
                 <img src="{{ static('event/images/logo.svg') }}" class="logoNav" alt="logo" />
 
