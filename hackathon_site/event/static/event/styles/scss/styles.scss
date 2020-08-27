@@ -98,7 +98,7 @@ strong {
 }
 
 .purpleLanding {
-    background-image: url('/static/event/images/purple_landing.svg');
+    background-image: url('/static/event/images/purple_landing.svg');   
     background-repeat: no-repeat;
     background-size: cover;
     background-size: auto 100%;
@@ -111,7 +111,7 @@ strong {
     }
 
     @include responsive(sm-down) {
-        background-image: url("../../images/purple_landing_mobile.svg");
+        background-image: url("/static/event/images/purple_landing_mobile.svg");
         background-position: center bottom;
         padding: 0 0 220px;
         margin-top: -56px;
@@ -240,6 +240,25 @@ strong {
 .video {
     max-width: 1000px;
     width: 90%;
+    height: 557px;
+
+    // iframe heights are static so I have to set the height every time 
+    @include responsive(lg-down) {
+        height: 400px;
+    }
+
+    @include responsive(md-down) {
+        height: 360px;
+    }
+
+    @include responsive(sm-down) {
+        height: 250px;
+    }
+
+    @include responsive(xs-down) {
+        height: 200px;
+    }
+    
 }
 // End of video section
 
