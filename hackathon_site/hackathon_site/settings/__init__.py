@@ -162,7 +162,10 @@ SWAGGER_SETTINGS = {"DEFAULT_MODEL_RENDERING": "example", "DEEP_LINKING": True}
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = "/static/"
+# Per this patch, this will be prepended with SCRIPT_NAME in production
+# https://github.com/django/django/pull/11564
+STATIC_URL = "static/"
+
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 # Event specific settings
