@@ -54,7 +54,7 @@ strong {
 }
 
 .sidenav {
-    background: linear-gradient(180deg, #1A093E 30%, #2F1E52 60%, #4B3676 80%);
+    background: linear-gradient(180deg, #1a093e 30%, #2f1e52 60%, #4b3676 80%);
 
     .logoImg {
         height: 80px;
@@ -98,7 +98,7 @@ strong {
 }
 
 .purpleLanding {
-    background-image: url('/static/event/images/purple_landing.svg');   
+    background-image: url("../../images/purple_landing.svg");
     background-repeat: no-repeat;
     background-size: cover;
     background-size: auto 100%;
@@ -111,7 +111,7 @@ strong {
     }
 
     @include responsive(sm-down) {
-        background-image: url("/static/event/images/purple_landing_mobile.svg");
+        background-image: url("../../images/purple_landing_mobile.svg");
         background-position: center bottom;
         padding: 0 0 220px;
         margin-top: -56px;
@@ -242,7 +242,7 @@ strong {
     width: 90%;
     height: 557px;
 
-    // iframe heights are static so I have to set the height every time 
+    // iframe heights are static so I have to set the height every time
     @include responsive(lg-down) {
         height: 400px;
     }
@@ -258,7 +258,6 @@ strong {
     @include responsive(xs-down) {
         height: 200px;
     }
-    
 }
 // End of video section
 
@@ -340,10 +339,22 @@ strong {
 .ombreBackgroundLight {
     position: relative;
     background: color(secondary);
-    background: linear-gradient(180deg, color(secondary) 25%, rgba(230, 186, 98, 1) 40%, rgba(139, 83, 102, 1) 60%, #3e2c64 85%);
+    background: linear-gradient(
+        180deg,
+        color(secondary) 25%,
+        rgba(230, 186, 98, 1) 40%,
+        rgba(139, 83, 102, 1) 60%,
+        #3e2c64 85%
+    );
 
     @include responsive(md-down) {
-        background: linear-gradient(180deg,color(secondary) 15%, rgba(230, 186, 98, 1) 20%, rgba(139, 83, 102, 1) 40%, #3e2c64 65%);
+        background: linear-gradient(
+            180deg,
+            color(secondary) 15%,
+            rgba(230, 186, 98, 1) 20%,
+            rgba(139, 83, 102, 1) 40%,
+            #3e2c64 65%
+        );
     }
 }
 
