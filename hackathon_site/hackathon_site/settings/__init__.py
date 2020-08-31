@@ -166,7 +166,7 @@ STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 # Event specific settings
-REGISTRATION_OPEN_DATE = datetime(2020, 9, 1, tzinfo=pytz.timezone(TIME_ZONE))
-REGISTRATION_CLOSE_DATE = datetime(2020, 9, 30, tzinfo=pytz.timezone(TIME_ZONE))
-EVENT_START_DATE = datetime(2020, 10, 10, 10, 0, 0, tzinfo=pytz.timezone(TIME_ZONE))
-EVENT_END_DATE = datetime(2020, 10, 11, 17, 0, 0, tzinfo=pytz.timezone(TIME_ZONE))
+REGISTRATION_OPEN_DATE = datetime(2020, 9, 18, tzinfo=pytz.timezone(TIME_ZONE))
+REGISTRATION_CLOSE_DATE = datetime(2020, 10, 22, tzinfo=pytz.timezone(TIME_ZONE))
+EVENT_START_DATE = datetime(2020, 11, 7, 10, 0, 0, tzinfo=pytz.timezone(TIME_ZONE))
+EVENT_END_DATE = datetime(2020, 11, 8, 17, 0, 0, tzinfo=pytz.timezone(TIME_ZONE))

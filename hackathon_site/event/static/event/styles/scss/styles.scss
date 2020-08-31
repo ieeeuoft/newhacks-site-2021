@@ -1,15 +1,26 @@
 @import "mixins";
 @import "variables";
 
-// Note, Materialize classes are kebab and all the classes below are camel case
-// so you can distinguish its origin
-
 // General HTML stuff
-.icon-block {
-    padding: 0 15px;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: font(header);
 }
-.icon-block .material-icons {
-    font-size: inherit;
+
+h1 {
+    margin-top: 150px;
+
+    @include responsive(md-down) {
+        margin-top: 30px;
+    }
+
+    @include responsive(sm-down) {
+        margin-top: 50px;
+    }
 }
 
 h3 {
@@ -18,6 +29,7 @@ h3 {
 }
 
 body {
+    font-family: font(body);
     font-size: 18px;
 }
 
@@ -28,33 +40,102 @@ strong {
 
 // Navbar stuff
 .logoNav {
-    height: 100%;
+    height: 200px;
     padding: 5px;
+    transition: height 200ms linear;
+
+    &Scrolled {
+        height: 100%;
+    }
+
+    @include responsive(md-down) {
+        height: 100%;
+    }
 }
 
 .sidenav {
-    .logoNav {
+    background: linear-gradient(180deg, #1a093e 30%, #2f1e52 60%, #4b3676 80%);
+
+    .logoImg {
         height: 80px;
         margin: 20px;
+    }
+
+    li {
+        color: #fff;
+    }
+
+    li > a:hover,
+    nav ul a:hover {
+        background-color: rgba(0, 0, 0, 0.25);
     }
 }
 
 .navbar {
     position: sticky;
     top: 0;
+    background-color: transparent;
+    box-shadow: none;
+    transition: background-color 200ms linear;
     z-index: 998;
+
+    &Scrolled {
+        background-color: rgba(39, 22, 72, 0.9);
+        box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12),
+            0 1px 5px 0 rgba(0, 0, 0, 0.2);
+    }
+}
+
+.active {
+    color: color(secondary);
 }
 // End of navbar stuff
 
 // Landing section
-.landingImg {
-    display: flex;
-    justify-content: center;
-    margin-top: 60px;
+#landing {
+    position: relative;
+    z-index: 2;
+}
+
+.purpleLanding {
+    background-image: url("../../images/purple_landing.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-size: auto 100%;
+    background-position: right top;
+    padding: 30px 0 50px;
+    margin-top: -64px;
+
+    @media only screen and (min-width: 2600px) {
+        background-position: left top;
+    }
+
+    @include responsive(sm-down) {
+        background-image: url("../../images/purple_landing_mobile.svg");
+        background-position: center bottom;
+        padding: 0 0 220px;
+        margin-top: -56px;
+    }
 }
 // End of landing section
 
 // "About" section
+#about {
+    position: relative;
+    z-index: 2;
+
+    @include responsive(sm-down) {
+        margin-top: -100px;
+    }
+}
+
+.skylineImg {
+    position: absolute;
+    bottom: -5px;
+    right: 0;
+    width: 100%;
+}
+
 .countdown {
     display: flex;
     align-items: center;
@@ -72,8 +153,8 @@ strong {
         font-weight: bold;
         font-size: 106px;
         text-align: center;
-        background-color: color(secondary);
-        color: #0d061a;
+        color: color(font);
+        font-family: font(header);
         display: flex;
         flex-direction: column;
         margin: 0 5px;
@@ -84,7 +165,7 @@ strong {
         position: relative;
         top: 50%;
         width: 100%;
-        border: 2px solid color(white);
+        border: 2px solid #ffffff;
     }
 }
 
@@ -124,6 +205,24 @@ strong {
 }
 // End of "Schedule" section
 
+// "FAQ" section
+.collapsible,
+.collapsible-body,
+.collapsible-header {
+    border: none;
+    box-shadow: none;
+    margin: 0;
+}
+.collapsible-header {
+    background-color: transparent;
+    color: #fff;
+}
+
+.collapsible-body {
+    color: color(light);
+}
+// End of "FAQ" section
+
 // "Sponsors" section
 .sponsorImgs {
     margin-top: 50px;
@@ -137,16 +236,28 @@ strong {
 }
 // End of "Sponsors" section
 
-// "FAQ" section
-.collapsible .active {
-    color: color(primary);
-}
-// End of "FAQ" section
-
 // Video section
 .video {
     max-width: 1000px;
     width: 90%;
+    height: 557px;
+
+    // iframe heights are static so I have to set the height every time
+    @include responsive(lg-down) {
+        height: 400px;
+    }
+
+    @include responsive(md-down) {
+        height: 360px;
+    }
+
+    @include responsive(sm-down) {
+        height: 250px;
+    }
+
+    @include responsive(xs-down) {
+        height: 200px;
+    }
 }
 // End of video section
 
@@ -180,15 +291,15 @@ strong {
         }
 
         &:hover {
-            background-color: rgba(0, 0, 0, 0.2);
+            background-color: #d2a300;
         }
     }
 }
 // End of section
 
-/* Colors  */
+// Colors
 .primaryColor {
-    background-color: color(primary) !important;
+    background-color: color(primary);
 }
 
 .secondaryColor {
@@ -196,29 +307,67 @@ strong {
 }
 
 .primaryText {
-    color: color(primary) !important;
+    color: color(primary);
 }
 
 .secondaryText {
-    color: color(secondary) !important;
+    color: color(secondary);
 }
 
-.colorBtn {
-    font-weight: bold;
+.darkText {
+    color: color(font);
+}
+
+.lightText {
+    color: color(light);
+}
+
+.coloredBtn {
+    font-weight: bold !important;
     text-align: center;
     text-transform: uppercase;
     color: color(font) !important;
-    background-color: color(secondary) !important;
+    font-family: font(header);
 
     &:hover {
         background-color: #d2a300 !important;
     }
 }
-
-.active {
-    color: color(secondary);
-}
 // End of colors
+
+// Background colors
+.ombreBackgroundLight {
+    position: relative;
+    background: color(secondary);
+    background: linear-gradient(
+        180deg,
+        color(secondary) 25%,
+        rgba(230, 186, 98, 1) 40%,
+        rgba(139, 83, 102, 1) 60%,
+        #3e2c64 85%
+    );
+
+    @include responsive(md-down) {
+        background: linear-gradient(
+            180deg,
+            color(secondary) 15%,
+            rgba(230, 186, 98, 1) 20%,
+            rgba(139, 83, 102, 1) 40%,
+            #3e2c64 65%
+        );
+    }
+}
+
+.ombreBackgroundDark1 {
+    background: linear-gradient(180deg, color(dark) 40%, #0c0618 90%);
+    margin-top: -10px;
+}
+
+.ombreBackgroundDark2 {
+    background: linear-gradient(180deg, #0d061a 2%, #0a011a 45%);
+    margin-top: -10px;
+}
+// End of background colors
 
 // Formatting stuff
 .flexColCenter {
