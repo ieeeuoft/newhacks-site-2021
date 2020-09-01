@@ -107,11 +107,21 @@ jobs:
         uses: actions/setup-python@v1
         with:
           python-version: 3.8
-      - name: Install dependencies
+      - name: Install python dependencies
         working-directory: hackathon_site
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+      - name: Use Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: Install nodejs dependencies
+        working-directory: hackathon_site/event
+        run: yarn install
+      - name: Compile scss
+        working-directory: hackathon_site/event
+        run: yarn scss
       - name: Collect static
         working-directory: hackathon_site
         env:
