@@ -1,0 +1,394 @@
+@import "mixins";
+@import "variables";
+
+// General HTML stuff
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: font(header);
+}
+
+h1 {
+    margin-top: 150px;
+
+    @include responsive(md-down) {
+        margin-top: 30px;
+    }
+
+    @include responsive(sm-down) {
+        margin-top: 50px;
+    }
+}
+
+h3 {
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+body {
+    font-family: font(body);
+    font-size: 18px;
+}
+
+strong {
+    font-weight: 700;
+}
+// End of general HTML stuff
+
+// Navbar stuff
+.logoNav {
+    height: 200px;
+    padding: 5px;
+    transition: height 200ms linear;
+
+    &Scrolled {
+        height: 100%;
+    }
+
+    @include responsive(md-down) {
+        height: 100%;
+    }
+}
+
+.sidenav {
+    background: linear-gradient(180deg, #1a093e 30%, #2f1e52 60%, #4b3676 80%);
+
+    .logoImg {
+        height: 80px;
+        margin: 20px;
+    }
+
+    li {
+        color: #fff;
+    }
+
+    li > a:hover,
+    nav ul a:hover {
+        background-color: rgba(0, 0, 0, 0.25);
+    }
+}
+
+.navbar {
+    position: sticky;
+    top: 0;
+    background-color: transparent;
+    box-shadow: none;
+    transition: background-color 200ms linear;
+    z-index: 998;
+
+    &Scrolled {
+        background-color: rgba(39, 22, 72, 0.9);
+        box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12),
+            0 1px 5px 0 rgba(0, 0, 0, 0.2);
+    }
+}
+
+.active {
+    color: color(secondary);
+}
+// End of navbar stuff
+
+// Landing section
+#landing {
+    position: relative;
+    z-index: 2;
+}
+
+.purpleLanding {
+    background-image: url("../../images/purple_landing.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-size: auto 100%;
+    background-position: right top;
+    padding: 30px 0 50px;
+    margin-top: -64px;
+
+    @media only screen and (min-width: 2600px) {
+        background-position: left top;
+    }
+
+    @include responsive(sm-down) {
+        background-image: url("../../images/purple_landing_mobile.svg");
+        background-position: center bottom;
+        padding: 0 0 220px;
+        margin-top: -56px;
+    }
+}
+// End of landing section
+
+// "About" section
+#about {
+    position: relative;
+    z-index: 2;
+
+    @include responsive(sm-down) {
+        margin-top: -100px;
+    }
+}
+
+.skylineImg {
+    position: absolute;
+    bottom: -5px;
+    right: 0;
+    width: 100%;
+}
+
+.countdown {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &Days {
+        margin-top: 20px;
+        font-size: 30px;
+    }
+
+    &Num {
+        width: 78px;
+        height: 129px;
+        border-radius: 10px;
+        font-weight: bold;
+        font-size: 106px;
+        text-align: center;
+        color: color(font);
+        font-family: font(header);
+        display: flex;
+        flex-direction: column;
+        margin: 0 5px;
+        padding: 0 !important;
+    }
+
+    &WhiteLine {
+        position: relative;
+        top: 50%;
+        width: 100%;
+        border: 2px solid #ffffff;
+    }
+}
+
+#day1,
+#day2,
+#day3 {
+    margin: -20px 0 0;
+}
+// End of "About" section
+
+// "Schedule" section
+.schedule {
+    margin: 10px 0 30px;
+
+    p {
+        font-size: 20px;
+        margin: 0;
+    }
+
+    &Time {
+        width: 80px;
+    }
+
+    &Row {
+        display: flex;
+        margin: 10px 0;
+    }
+
+    @include responsive(md-down) {
+        p {
+            font-size: 18px;
+        }
+        &Time {
+            width: 70px;
+        }
+    }
+}
+// End of "Schedule" section
+
+// "FAQ" section
+.collapsible,
+.collapsible-body,
+.collapsible-header {
+    border: none;
+    box-shadow: none;
+    margin: 0;
+}
+.collapsible-header {
+    background-color: transparent;
+    color: #fff;
+}
+
+.collapsible-body {
+    color: color(light);
+}
+// End of "FAQ" section
+
+// "Sponsors" section
+.sponsorImgs {
+    margin-top: 50px;
+
+    img {
+        height: 100%;
+        width: 100%;
+        max-height: 150px;
+        padding-bottom: 50px;
+    }
+}
+// End of "Sponsors" section
+
+// Video section
+.video {
+    max-width: 1000px;
+    width: 90%;
+    height: 557px;
+
+    // iframe heights are static so I have to set the height every time
+    @include responsive(lg-down) {
+        height: 400px;
+    }
+
+    @include responsive(md-down) {
+        height: 360px;
+    }
+
+    @include responsive(sm-down) {
+        height: 250px;
+    }
+
+    @include responsive(xs-down) {
+        height: 200px;
+    }
+}
+// End of video section
+
+// Carousel section
+.carousel {
+    height: 333px !important;
+
+    .carousel-item {
+        opacity: 1 !important;
+        height: 333px !important;
+
+        > img {
+            width: auto !important;
+            height: 100%;
+        }
+    }
+}
+// End of carousel section
+
+// Footer section
+.contactBtns {
+    a {
+        border-radius: 100%;
+        height: 50px;
+        width: 50px;
+        margin: 10px 15px 20px;
+
+        img {
+            height: 100%;
+            width: 100%;
+        }
+
+        &:hover {
+            background-color: #d2a300;
+        }
+    }
+}
+// End of section
+
+// Colors
+.primaryColor {
+    background-color: color(primary);
+}
+
+.secondaryColor {
+    background-color: color(secondary) !important;
+}
+
+.primaryText {
+    color: color(primary);
+}
+
+.secondaryText {
+    color: color(secondary);
+}
+
+.darkText {
+    color: color(font);
+}
+
+.lightText {
+    color: color(light);
+}
+
+.coloredBtn {
+    font-weight: bold !important;
+    text-align: center;
+    text-transform: uppercase;
+    color: color(font) !important;
+    font-family: font(header);
+
+    &:hover {
+        background-color: #d2a300 !important;
+    }
+}
+// End of colors
+
+// Background colors
+.ombreBackgroundLight {
+    position: relative;
+    background: color(secondary);
+    background: linear-gradient(
+        180deg,
+        color(secondary) 25%,
+        rgba(230, 186, 98, 1) 40%,
+        rgba(139, 83, 102, 1) 60%,
+        #3e2c64 85%
+    );
+
+    @include responsive(md-down) {
+        background: linear-gradient(
+            180deg,
+            color(secondary) 15%,
+            rgba(230, 186, 98, 1) 20%,
+            rgba(139, 83, 102, 1) 40%,
+            #3e2c64 65%
+        );
+    }
+}
+
+.ombreBackgroundDark1 {
+    background: linear-gradient(180deg, color(dark) 40%, #0c0618 90%);
+    margin-top: -10px;
+}
+
+.ombreBackgroundDark2 {
+    background: linear-gradient(180deg, #0d061a 2%, #0a011a 45%);
+    margin-top: -10px;
+}
+// End of background colors
+
+// Formatting stuff
+.flexColCenter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.longText {
+    padding-right: 200px;
+
+    @include responsive(sm-down) {
+        padding-right: 0;
+    }
+}
+
+.hoverLink {
+    font-weight: bold;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+// End of formatting stuff
