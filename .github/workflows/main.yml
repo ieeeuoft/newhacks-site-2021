@@ -163,8 +163,10 @@ jobs:
           script_stop: true
           script: |
             cd /usr/src/${{ github.repository }}
-            echo "Pulling docker-stack-wait"
-            docker pull sudobmitch/docker-stack-wait
+            curl -s https://raw.githubusercontent.com/sudo-bmitch/docker-stack-wait/main/docker-stack-wait.sh \
+              -o docker-stack-wait.sh
+            chmod +x docker-stack-wait.sh
+
             echo "Logging in to docker"
             echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
             echo "Deploying stack"
@@ -172,10 +174,7 @@ jobs:
 
             echo "Running docker-stack-wait"
             # Wait for deployment to complete
-            echo "Echoing after a comment"
-            docker run --rm \
-              -v /var/run/docker.sock:/var/run/docker.sock \
-              sudobmitch/docker-stack-wait ${{ env.STACK_NAME }}
+            ./docker-stack-wait.sh ${{ env.STACK_NAME }}
 
             echo "Getting container id"
             # Run migrations
@@ -188,6 +187,7 @@ jobs:
             echo "Cleaning up"
             # Cleanup
             rm .env
+            rm docker-stack-wait.sh
             echo "Logging out of docker"
             docker logout docker.pkg.github.com
             echo "Goodbye"
