@@ -1,3 +1,9 @@
+// Variables for navbar moving up on scroll
+let didScroll;
+let lastScrollTop = 0;
+let delta = 5;
+let navbarHeight = $(".navbar").outerHeight();
+
 // Change navbar color on scroll
 // Change height of navbar icon on scroll
 $(document).scroll(function () {
@@ -6,6 +12,8 @@ $(document).scroll(function () {
 
     $nav.toggleClass("navbarScrolled", $(this).scrollTop() > $nav.height());
     $logo.toggleClass("logoNavScrolled", $(this).scrollTop() > $nav.height());
+
+    didScroll = true;
 });
 
 $(document).ready(function () {
@@ -44,6 +52,13 @@ $(document).ready(function () {
         // Update the countdown every ten minute
         setInterval(setCounter(countDownDate), 600000);
     }
+
+    setInterval(function () {
+        if (didScroll) {
+            hasScrolled();
+            didScroll = false;
+        }
+    }, 250);
 });
 
 function setCounter(countDownDate) {
@@ -60,4 +75,24 @@ function setCounter(countDownDate) {
 
     $("#day2").html(Math.floor(days / 10) % 10);
     $("#day3").html(days % 10);
+}
+
+function hasScrolled() {
+    let st = $(this).scrollTop();
+
+    // Make sure they scroll more than delta
+    if (Math.abs(lastScrollTop - st) <= delta) return;
+
+    // The class only applies to mobile view
+    if (st > lastScrollTop && st > navbarHeight) {
+        // Scroll down
+        $(".navbar").addClass("navbarUp");
+    } else {
+        // Scroll Up
+        if (st + $(window).height() < $(document).height()) {
+            $(".navbar").removeClass("navbarUp");
+        }
+    }
+
+    lastScrollTop = st;
 }
