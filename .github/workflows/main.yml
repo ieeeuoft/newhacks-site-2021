@@ -167,7 +167,8 @@ jobs:
           docker stack deploy --with-registry-auth -c docker-compose.prod.yml ${{ env.STACK_NAME }}
 
           echo "Waiting for deployment..."
-          ./docker-stack-wait.sh ${{ env.STACK_NAME }}
+          sleep 30
+          ./docker-stack-wait.sh -t 300 ${{ env.STACK_NAME }}
 
           echo "Running migrations..."
           # TODO: This will fail if at least one replica isn't running on the node, will need to
