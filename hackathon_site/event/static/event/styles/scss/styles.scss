@@ -48,6 +48,11 @@ strong {
         height: 100%;
     }
 
+    &Side {
+        padding: 30px;
+        height: 150px;
+    }
+
     @include responsive(md-down) {
         height: 100%;
     }
@@ -77,12 +82,25 @@ strong {
     background-color: transparent;
     box-shadow: none;
     transition: background-color 200ms linear;
+    transition: top 200ms ease-in-out;
     z-index: 998;
 
     &Scrolled {
         background-color: rgba(39, 22, 72, 0.9);
         box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12),
             0 1px 5px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    @include responsive(md-down) {
+        &Up {
+            top: -66px !important;
+        }
+    }
+
+    @include responsive(sm-down) {
+        &Up {
+            top: -58px !important;
+        }
     }
 }
 
