@@ -45,9 +45,6 @@ class IndexViewTestCase(SetupUserMixin, TestCase):
     def test_index_view(self):
         response = self.client.get(self.view)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertContains(response, "Login")
-        self.assertContains(response, "Apply")
-        self.assertContains(response, reverse("registration:signup"))
 
     def test_logout_button_renders_when_logged_in(self):
         self._login()
