@@ -138,6 +138,11 @@ jobs:
           echo 'DB_PASSWORD=${{ secrets.DB_PASSWORD }}' >> .env
           echo 'DB_HOST=${{ secrets.DB_HOST }}' >> .env
           echo 'DB_PORT=${{ secrets.DB_PORT }}' >> .env
+          echo 'EMAIL_HOST=${{ secrets.EMAIL_HOST }}' >> .env
+          echo 'EMAIL_PORT=${{ secrets.EMAIL_PORT }}' >> .env
+          echo 'EMAIL_HOST_USER=${{ secrets.EMAIL_HOST_USER }}' >> .env
+          echo 'EMAIL_HOST_PASSWORD=${{ secrets.EMAIL_HOST_PASSWORD }}' >> .env
+          echo 'EMAIL_FROM_ADDRESS=${{ secrets.EMAIL_FROM_ADDRESS }}' >> .env
       - name: Transfer static files to the Swarm manager
         uses: appleboy/scp-action@v0.1.1
         with:

@@ -39,12 +39,21 @@ if DEBUG:
         r"^https?://localhost:?\d*$",
     ]
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+    DEFAULT_FROM_EMAIL = "webmaster@localhost"
+
 else:
     # NOTE: If you aren't ieee uoft, put your websites here
     ALLOWED_HOSTS = ["ieee.utoronto.ca"]
     CORS_ORIGIN_REGEX_WHITELIST = [
         r"^https://ieee\.utoronto.ca:?\d*$",
     ]
+
+    EMAIL_HOST = os.environ.get("EMAIL_HOST", None)
+    EMAIL_PORT = os.environ.get("EMAIL_PORT", None)
+    EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", None)
+    EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", None)
+    EMAIL_USE_SSL = True
+    DEFAULT_FROM_EMAIL = os.environ.get("EMAIL_FROM_ADDRESS", "webmaster@localhost")
 
 CORS_ALLOW_CREDENTIALS = True
 
@@ -194,7 +203,6 @@ else:
 
 # Event specific settings
 HACKATHON_NAME = "NewHacks"
-DEFAULT_FROM_EMAIL = "newhacks@ieee.utoronto.ca"
 CONTACT_EMAIL = DEFAULT_FROM_EMAIL
 
 REGISTRATION_OPEN_DATE = datetime(2020, 9, 18, tzinfo=pytz.timezone(TIME_ZONE))
