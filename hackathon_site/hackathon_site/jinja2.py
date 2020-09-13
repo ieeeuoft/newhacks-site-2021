@@ -1,7 +1,7 @@
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django.conf import settings
 from django.urls import reverse
-from django.utils.timezone import template_localtime
+from django.utils.timezone import template_localtime, now
 
 from jinja2 import Environment
 
@@ -23,6 +23,7 @@ def environment(**options):
             "event_end_date": settings.EVENT_END_DATE,
             "from_email": settings.DEFAULT_FROM_EMAIL,
             "contact_email": settings.CONTACT_EMAIL,
+            "now": now()
         }
     )
     return env
