@@ -21,3 +21,16 @@ and by running your code before you merge it.
 from hackathon_site.settings import *
 
 DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": ":memory:"}}
+
+# For testing, make the media root a local folder to avoid
+# permissions errors
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+if not os.path.isdir(MEDIA_ROOT):
+    os.makedirs(MEDIA_ROOT)
+
+# In testing, default registration to be always open (so tests don't
+# fail when the date rolls after the close date). Tests that rely on
+# registration being closed should use the ``django.test.override_settings``
+# decorator.
+REGISTRATION_OPEN = True

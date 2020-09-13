@@ -8,7 +8,7 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: font(header);
+    font-family: font(header), sans-serif;
 }
 
 h1 {
@@ -23,14 +23,27 @@ h1 {
     }
 }
 
+p {
+    margin: 0;
+}
+
+.icon-block {
+    padding: 0 15px;
+}
+
+.icon-block .material-icons {
+    font-size: inherit;
+}
+
 h3 {
     font-weight: bold;
     text-transform: uppercase;
 }
 
 body {
-    font-family: font(body);
+    font-family: font(body), sans-serif;
     font-size: 18px;
+    color: color(font);
 }
 
 strong {
@@ -39,9 +52,12 @@ strong {
 // End of general HTML stuff
 
 // Navbar stuff
+.logoNav100 {
+    height: 100%;
+}
+
 .logoNav {
     height: 200px;
-    padding: 5px;
     transition: height 200ms linear;
 
     &Scrolled {
@@ -51,6 +67,16 @@ strong {
     &Side {
         padding: 30px;
         height: 150px;
+
+        a,
+        img {
+            height: 100% !important;
+            padding: 0 !important;
+
+            &:hover {
+                background-color: transparent !important;
+            }
+        }
     }
 
     @include responsive(md-down) {
@@ -61,13 +87,8 @@ strong {
 .sidenav {
     background: linear-gradient(180deg, #1a093e 30%, #2f1e52 60%, #4b3676 80%);
 
-    .logoImg {
-        height: 80px;
-        margin: 20px;
-    }
-
-    li {
-        color: #fff;
+    li a {
+        color: #fff !important;
     }
 
     li > a:hover,
@@ -81,9 +102,9 @@ strong {
     top: 0;
     background-color: transparent;
     box-shadow: none;
-    transition: background-color 200ms linear;
-    transition: top 200ms ease-in-out;
+    transition: background-color 200ms linear, top 200ms ease-in-out;
     z-index: 998;
+    padding: 5px;
 
     &Scrolled {
         background-color: rgba(39, 22, 72, 0.9);
@@ -118,7 +139,6 @@ strong {
 .purpleLanding {
     background-image: url("../../images/purple_landing.svg");
     background-repeat: no-repeat;
-    background-size: cover;
     background-size: auto 100%;
     background-position: right top;
     padding: 30px 0 50px;
@@ -135,6 +155,18 @@ strong {
         margin-top: -56px;
     }
 }
+
+.landingImg {
+    @include flexPosition($jusCon: center);
+
+    img {
+        width: 100%;
+    }
+
+    @include responsive(sm-down) {
+        margin-top: 0;
+    }
+}
 // End of landing section
 
 // "About" section
@@ -145,6 +177,10 @@ strong {
     @include responsive(sm-down) {
         margin-top: -100px;
     }
+}
+
+.aboutText p {
+    margin: 20px 0;
 }
 
 .skylineImg {
@@ -172,7 +208,7 @@ strong {
         font-size: 106px;
         text-align: center;
         color: color(font);
-        font-family: font(header);
+        font-family: font(header), sans-serif;
         display: flex;
         flex-direction: column;
         margin: 0 5px;
@@ -341,18 +377,169 @@ strong {
     color: color(light);
 }
 
-.coloredBtn {
+.colorBtn {
     font-weight: bold !important;
     text-align: center;
     text-transform: uppercase;
     color: color(font) !important;
-    font-family: font(header);
+    font-family: font(header), sans-serif;
+    background-color: color(secondary);
 
     &:hover {
         background-color: #d2a300 !important;
     }
 }
 // End of colors
+
+// Login stuff
+.login {
+    &Div {
+        display: flex;
+        background-color: #fff;
+        border-top: solid 10px color(secondary);
+        border-radius: 3px 3px 0 0;
+        padding: 50px 30px 30px;
+        margin: 50px auto 100px;
+        max-width: 900px;
+
+        @include responsive(md-down) {
+            padding: 40px 15px 30px;
+        }
+
+        @include responsive(sm-down) {
+            padding-bottom: 20px;
+            display: block;
+        }
+
+        .landingImg img {
+            max-width: 300px;
+        }
+    }
+
+    &Link {
+        display: flex;
+        justify-content: center;
+        margin: 10px 0 15px;
+        font-size: size(md);
+        padding: 0 !important;
+
+        i {
+            margin-right: 5px;
+        }
+    }
+}
+
+.form {
+    &H1 {
+        font-weight: bold;
+        text-align: center;
+        text-transform: uppercase;
+        margin: 0 auto 30px;
+        color: color(dark);
+        font-size: 50px;
+    }
+
+    &H2 {
+        font-weight: normal;
+        color: color(dark);
+        font-size: 30px;
+        margin: 0 0 15px;
+    }
+
+    &H3 {
+        font-weight: normal;
+        color: color(dark);
+        font-size: 24px;
+        text-transform: initial;
+        margin: 0 0 10px;
+    }
+
+    @include responsive(md-down) {
+        &H1 {
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+        &H2 {
+            font-size: 24px;
+        }
+        &H3 {
+            font-size: 20px;
+        }
+    }
+
+    &Checkbox span {
+        color: color(font);
+    }
+
+    &FieldError {
+        font-size: 12px;
+        color: #f44336;
+        display: block;
+    }
+
+    &Error {
+        color: #f44336;
+        display: block;
+    }
+}
+
+.input-field {
+    input:not([type]):focus:not([readonly]) + label,
+    input[type="text"]:focus:not([readonly]) + label,
+    input[type="password"]:focus:not([readonly]) + label,
+    input[type="email"]:focus:not([readonly]) + label,
+    input[type="date"]:focus:not([readonly]) + label,
+    input[type="tel"]:focus:not([readonly]) + label,
+    input[type="number"]:focus:not([readonly]) + label,
+    input[type="search"]:focus:not([readonly]) + label,
+    textarea.materialize-textarea:focus:not([readonly]) + label {
+        color: color(primary);
+    }
+
+    input:not([type]):focus:not([readonly]),
+    input[type="text"]:focus:not([readonly]),
+    input[type="password"]:focus:not([readonly]),
+    input[type="email"]:focus:not([readonly]),
+    input[type="date"]:focus:not([readonly]),
+    input[type="tel"]:focus:not([readonly]),
+    input[type="number"]:focus:not([readonly]),
+    input[type="search"]:focus:not([readonly]),
+    textarea.materialize-textarea:focus:not([readonly]) {
+        border-bottom: 1px solid color(primary);
+        -webkit-box-shadow: 0 1px 0 0 color(primary);
+        box-shadow: 0 1px 0 0 color(primary);
+    }
+}
+// End of form stuff
+
+// Dashboard stuff
+.borderTopDiv {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    border-top: solid 10px color(secondary);
+    border-radius: 3px 3px 0 0;
+    padding: 40px 30px 30px;
+    margin: 20px auto;
+    max-width: 950px;
+    font-size: size(md);
+
+    @include responsive(sm-down) {
+        padding: 25px 20px;
+    }
+}
+
+.faq {
+    &Question {
+        font-weight: bold;
+        margin: 10px 0 0;
+    }
+
+    &Answer {
+        margin: 5px 0 20px;
+    }
+}
+// End of dashboard stuff
 
 // Background colors
 .ombreBackgroundLight {
@@ -386,6 +573,11 @@ strong {
     background: linear-gradient(180deg, #0d061a 2%, #0a011a 45%);
     margin-top: -10px;
 }
+
+.ombreBackgroundDark3 {
+    background: linear-gradient(180deg, #271648 60%, #0c0618 90%);
+    min-height: 100vh;
+}
 // End of background colors
 
 // Formatting stuff
@@ -404,10 +596,22 @@ strong {
 }
 
 .hoverLink {
-    font-weight: bold;
+    font-weight: 600;
 
     &:hover {
         text-decoration: underline;
+    }
+}
+
+.rowMarginPadding {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 0 !important;
+}
+
+.formPadding {
+    @include responsive(sm-down) {
+        padding: 0 !important;
     }
 }
 // End of formatting stuff

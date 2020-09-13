@@ -38,11 +38,28 @@ urlpatterns = [
         schema_view.with_ui("swagger", cache_timeout=0),
         name="schema-swagger-ui",
     ),
+    path("registration/", include("registration.urls", namespace="registration")),
     path("", include("event.urls", namespace="event")),
 ]
 
 
 if settings.DEBUG:
     import debug_toolbar
+    from django.core.exceptions import ImproperlyConfigured
+    from django.urls import re_path
+    from django.views.static import serve
 
-    urlpatterns = [path("__debug__/", include(debug_toolbar.urls))] + urlpatterns
+    urlpatterns += [path("__debug__/", include(debug_toolbar.urls))]
+
+    if settings.MEDIA_URL.startswith("http"):
+        raise ImproperlyConfigured(
+            "To serve media from off-site in development, "
+            "remove the media path from hackathon_site.urls"
+        )
+    urlpatterns += [
+        re_path(
+            r"^%s/(?P<path>.*)$" % settings.MEDIA_URL.strip("/"),
+            serve,
+            {"document_root": settings.MEDIA_ROOT},
+        )
+    ]
