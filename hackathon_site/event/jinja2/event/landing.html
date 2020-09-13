@@ -8,35 +8,15 @@
 </script>
 {% endblock %}
 
-{% block nav %}
-<ul class="right hide-on-med-and-down">
+{% block nav_links %}
     <li><a href="#about">About</a></li>
     <li><a href="#schedule">Schedule</a></li>
     <li><a href="#faq">FAQ</a></li>
     <li><a href="#sponsors">Sponsors</a></li>
     <li><a href="#contact">Contact</a></li>
-    {% if localtime(now) > localtime(registration_open_date) %}
-    <li>
-        <a class="btn-small waves-effect waves-light secondaryColor coloredBtn">Login</a>
-    </li>
+    {% if request.user.is_authenticated %}
+        <li><a href="{{ url("event:dashboard") }}">Dashboard</a></li>
     {% endif %}
-</ul>
-
-<ul id="nav-mobile" class="sidenav">
-    <li><img src="{{ static('event/images/logo.svg') }}" class="logoNavSide" alt="logo" /></li>
-    <li><a href="#about" class="white-text">About</a></li>
-    <li><a href="#schedule" class="white-text">Schedule</a></li>
-    <li><a href="#faq" class="white-text">FAQ</a></li>
-    <li><a href="#sponsors" class="white-text">Sponsors</a></li>
-    <li><a href="#contact" class="white-text">Contact</a></li>
-    {% if localtime(now) > localtime(registration_open_date) %}
-    <li>
-        <a class="btn-small waves-effect waves-light coloredBtn">Login</a>
-    </li>
-    {% endif %}
-</ul>
-
-<a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 {% endblock %}
 
 {% block body %}
@@ -57,17 +37,17 @@
                     {{ localtime(event_start_date).strftime("%B %-d") }}-{{ localtime(event_end_date).strftime("%-d, %Y") }}
                 </h5>
             </div>
-            {% if localtime(now) > localtime(registration_open_date) %}
             <div class="row">
-                <a class="btn-large waves-effect waves-light secondaryColor coloredBtn">
-                    {% if localtime(now) > localtime(registration_close_date) %}
-                    Login
+                {% if request.user.is_authenticated %}
+                    {% if application is none and registration_open %}
+                        <a href="{{ url("registration:application") }}" class="btn-large waves-effect waves-light colorBtn">Continue Application</a>
                     {% else %}
-                    Login/Apply
+                        <a href="{{ url("event:dashboard") }}" class="btn-large waves-effect waves-light colorBtn">Go to Dashboard</a>
                     {% endif %}
-                </a>
+                {% elif registration_open %}
+                    <a href="{{ url("registration:signup") }}" class="btn-large waves-effect waves-light colorBtn">Apply</a>
+                {% endif %}
             </div>
-            {% endif %}
             <br /><br />
         </div>
     </div>
@@ -166,7 +146,7 @@
                 </div>
             </div>
             <div class="m12 center">
-                <a class="btn-large waves-effect waves-light secondaryColor coloredBtn" href="https://docs.google.com/document/d/1GsO-_1kFvk8m-WwIaD0KLDOjXDv6_VPRYDwzx8T5PAI/edit?usp=sharing" rel="noopener" target="_blank">Full schedule</a>
+                <a class="btn-large waves-effect waves-light secondaryColor colorBtn" href="https://docs.google.com/document/d/1GsO-_1kFvk8m-WwIaD0KLDOjXDv6_VPRYDwzx8T5PAI/edit?usp=sharing" rel="noopener" target="_blank">Full schedule</a>
             </div>
         </div>
     </div>
@@ -266,7 +246,7 @@
 
                 <!-- Silver -->
                 <a href="https://www.analog.com/" class="col m3 s4" rel="noopener" target="_blank"><img src="{{ static('event/images/sponsors/Analog_Devices_white.svg') }}" alt="Analog Devices" /></a>
-                
+
                 <!-- Bronze -->
 
                 <!-- Partners -->
@@ -307,7 +287,7 @@
         <h3 class="row center">Contact Us</h3>
 
         <div class="row center contactBtns">
-            <a href="mailto:newhacks@ieee.utoronto.ca" class="waves-effect waves-light" rel="noopener" target="_blank"><img src="{{ static('event/images/social/email.svg') }}" alt="Email" /></a>
+            <a href="mailto:{{ contact_email }}" class="waves-effect waves-light" rel="noopener" target="_blank"><img src="{{ static('event/images/social/email.svg') }}" alt="Email" /></a>
             <a href="https://www.ieee.utoronto.ca" class="waves-effect waves-light" rel="noopener" target="_blank"><img src="{{ static('event/images/social/website.svg') }}" alt="ieee.utoronto.ca" /></a>
             <a href="https://www.facebook.com/ieeeuoft" class="waves-effect waves-light" rel="noopener" target="_blank"><img src="{{ static('event/images/social/facebook.svg') }}" alt="Facebook" /></a>
             <a href="https://www.instagram.com/ieee_uoft" class="waves-effect waves-light" rel="noopener" target="_blank"><img src="{{ static('event/images/social/instagram.svg') }}" alt="Instagram" /></a>
@@ -317,7 +297,7 @@
     </div>
     <div class="footer-copyright center darkText">
         <div class="container darkText">
-            Copyright © {% if localtime(event_end_date).year > 2020 %}2020-{% endif %} 
+            Copyright © {% if localtime(event_end_date).year > 2020 %}2020-{% endif %}
             {{ localtime(event_end_date).strftime("%Y") }} IEEE University of Toronto Student Branch
         </div>
     </div>

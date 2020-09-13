@@ -17,6 +17,8 @@ import os
 from pathlib import Path
 import pytz
 
+from django.urls import reverse_lazy
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 
@@ -36,6 +38,7 @@ if DEBUG:
     CORS_ORIGIN_REGEX_WHITELIST = [
         r"^https?://localhost:?\d*$",
     ]
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 else:
     # NOTE: If you aren't ieee uoft, put your websites here
     ALLOWED_HOSTS = ["ieee.utoronto.ca"]
@@ -51,6 +54,7 @@ INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
+    "django.forms",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
@@ -104,7 +108,11 @@ TEMPLATES = [
     },
 ]
 
+FORM_RENDERER = "django.forms.renderers.TemplatesSetting"
+
 WSGI_APPLICATION = "hackathon_site.wsgi.application"
+
+LOGIN_REDIRECT_URL = reverse_lazy("event:dashboard")
 
 
 # Database
@@ -151,6 +159,7 @@ REST_FRAMEWORK = {
 LANGUAGE_CODE = "en-us"
 
 TIME_ZONE = "America/Toronto"
+TZ_INFO = pytz.timezone(TIME_ZONE)
 
 USE_I18N = True
 
@@ -171,8 +180,29 @@ STATIC_URL = "static/"
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
+MEDIA_URL = "media/"
+
+if DEBUG:
+    MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+    if not os.path.isdir(MEDIA_ROOT):
+        os.makedirs(MEDIA_ROOT)
+else:
+    # You will almost certainly want to change this
+    # Remember to create this folder on your server
+    MEDIA_ROOT = "/var/www/media/"
+
 # Event specific settings
+HACKATHON_NAME = "CoolHacks"
+DEFAULT_FROM_EMAIL = "webmaster@localhost"
+CONTACT_EMAIL = DEFAULT_FROM_EMAIL
+
 REGISTRATION_OPEN_DATE = datetime(2020, 9, 18, tzinfo=pytz.timezone(TIME_ZONE))
 REGISTRATION_CLOSE_DATE = datetime(2020, 10, 22, tzinfo=pytz.timezone(TIME_ZONE))
 EVENT_START_DATE = datetime(2020, 11, 7, 10, 0, 0, tzinfo=pytz.timezone(TIME_ZONE))
 EVENT_END_DATE = datetime(2020, 11, 8, 17, 0, 0, tzinfo=pytz.timezone(TIME_ZONE))
+
+# Registration settings
+now = datetime.now(TZ_INFO)
+ACCOUNT_ACTIVATION_DAYS = 7
+REGISTRATION_OPEN = REGISTRATION_OPEN_DATE <= now < REGISTRATION_CLOSE_DATE
