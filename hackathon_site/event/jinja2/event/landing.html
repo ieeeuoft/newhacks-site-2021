@@ -8,6 +8,9 @@
 </script>
 {% endblock %}
 
+{% block nav_logo %}logoNav{% endblock %} 
+{% block nav_background_color %}{% endblock %}
+
 {% block nav_links %}
     <li><a href="#about">About</a></li>
     <li><a href="#schedule">Schedule</a></li>
@@ -55,7 +58,7 @@
     <div class="container">
         <div class="section scrollspy" id="about">
             <div class="row">
-                <div class="col m12 l7">
+                <div class="col m12 l7 aboutText">
                     <h3 class="center white-text">About us</h3>
 
                     <p class="center white-text">
@@ -146,7 +149,7 @@
                 </div>
             </div>
             <div class="m12 center">
-                <a class="btn-large waves-effect waves-light secondaryColor colorBtn" href="https://docs.google.com/document/d/1GsO-_1kFvk8m-WwIaD0KLDOjXDv6_VPRYDwzx8T5PAI/edit?usp=sharing" rel="noopener" target="_blank">Full schedule</a>
+                <a class="btn-large waves-effect waves-light colorBtn" href="https://docs.google.com/document/d/1GsO-_1kFvk8m-WwIaD0KLDOjXDv6_VPRYDwzx8T5PAI/edit?usp=sharing" rel="noopener" target="_blank">Full schedule</a>
             </div>
         </div>
     </div>

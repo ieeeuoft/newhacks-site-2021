@@ -8,7 +8,7 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: font(header) sans-serif;
+    font-family: font(header), sans-serif;
 }
 
 h1 {
@@ -41,7 +41,7 @@ h3 {
 }
 
 body {
-    font-family: font(body) sans-serif;
+    font-family: font(body), sans-serif;
     font-size: 18px;
     color: color(font);
 }
@@ -52,9 +52,12 @@ strong {
 // End of general HTML stuff
 
 // Navbar stuff
+.logoNav100 {
+    height: 100%;
+}
+
 .logoNav {
     height: 200px;
-    padding: 5px;
     transition: height 200ms linear;
 
     &Scrolled {
@@ -64,6 +67,16 @@ strong {
     &Side {
         padding: 30px;
         height: 150px;
+
+        a,
+        img {
+            height: 100% !important;
+            padding: 0 !important;
+    
+            &:hover {
+                background-color: transparent !important;
+            }
+        }
     }
 
     @include responsive(md-down) {
@@ -74,28 +87,13 @@ strong {
 .sidenav {
     background: linear-gradient(180deg, #1a093e 30%, #2f1e52 60%, #4b3676 80%);
 
-    li {
-        color: #fff;
+    li a {
+        color: #fff !important;
     }
 
     li > a:hover,
     nav ul a:hover {
         background-color: rgba(0, 0, 0, 0.25);
-    }
-}
-
-.logoNavSide {
-    padding: 30px;
-    height: 150px;
-
-    a,
-    img {
-        height: 100% !important;
-        padding: 0 !important;
-
-        &:hover {
-            background-color: transparent !important;
-        }
     }
 }
 
@@ -106,6 +104,7 @@ strong {
     box-shadow: none;
     transition: background-color 200ms linear, top 200ms ease-in-out;
     z-index: 998;
+    padding: 5px;
 
     &Scrolled {
         background-color: rgba(39, 22, 72, 0.9);
@@ -171,12 +170,6 @@ strong {
 // End of landing section
 
 // "About" section
-#aboutText {
-    p {
-        margin: 20px 0;
-    }
-}
-
 #about {
     position: relative;
     z-index: 2;
@@ -184,6 +177,10 @@ strong {
     @include responsive(sm-down) {
         margin-top: -100px;
     }
+}
+
+.aboutText p {
+    margin: 20px 0;
 }
 
 .skylineImg {
@@ -211,7 +208,7 @@ strong {
         font-size: 106px;
         text-align: center;
         color: color(font);
-        font-family: font(header) sans-serif;
+        font-family: font(header), sans-serif;
         display: flex;
         flex-direction: column;
         margin: 0 5px;
@@ -385,7 +382,8 @@ strong {
     text-align: center;
     text-transform: uppercase;
     color: color(font) !important;
-    font-family: font(header) sans-serif;
+    font-family: font(header), sans-serif;
+    background-color: color(secondary);
 
     &:hover {
         background-color: #d2a300 !important;
@@ -574,6 +572,11 @@ strong {
 .ombreBackgroundDark2 {
     background: linear-gradient(180deg, #0d061a 2%, #0a011a 45%);
     margin-top: -10px;
+}
+
+.ombreBackgroundDark3 {
+    background: linear-gradient(180deg, #271648 60%, #0C0618 90%);
+    min-height: 100vh;
 }
 // End of background colors
 
