@@ -7,6 +7,8 @@ services:
     ports:
       - 8001:8001
     env_file: .env
+    volumes:
+      - /var/www/${GITHUB_REPOSITORY}/media/:/var/www/media/
     deploy:
       replicas: 1
       update_config:
