@@ -149,13 +149,13 @@ $ yarn test
 ## File Structure
 The top level [hackathon_site](hackathon_site) folder contains the Django project that encapsulates this template.
 
-The main project configs are in [hackathon_site/hackathon_site](hackathon_site/hackathon_site), including the main settings file [settings/__init__.py](hackathon_site/hackathon_site/settings/__init__.py) and top-level URL config.
+The main project configs are in [hackathon_site/hackathon_site](hackathon_site/hackathon_site), including the main settings file [settings/\_\_init__.py](hackathon_site/hackathon_site/settings/__init__.py) and top-level URL config.
 
 The [dashboard](hackathon_site/dashboard) app contains the React project for the inventory management and hardware sign-out platform.
 
 The [event](hackathon_site/event) app contains the public-facing templates for the landing page.
 
-The [applications](hackathon_site/applications) app contains models, forms, and templates for user registration, including landing page and application templates. Since these templates are similar to the landing page, they may extend templates and use static files from the `event` app. 
+The [registration](hackathon_site/registration) app contains models, forms, and templates for user registration, including signup and application templates. Since these templates are similar to the landing page, they may extend templates and use static files from the `event` app. 
 
 ### Templates and Static Files
 Templates served from Django can be placed in any app. We use [Jinja 2](https://jinja.palletsprojects.com/en/2.11.x/) as our templating engine, instead of the default Django Template Language. Within each app, Jinja 2 templates must be placed in a folder called `jinja2/<app_name>/` (i.e., the full path will be `hackathon_site/<app_name>/jinja2/<app_name>/`). Templates can then be referenced in views as `<app_name>/your_template.html`.
@@ -267,4 +267,36 @@ This project was designed to be generic and customizable. At minimum, you will w
 
 Core event settings and constants, such as cutoff dates, are kept at the bottom of the [settings](hackathon_site/hackathon_site/settings/__init__.py) file. These settings can be imported and used in any view, form, or in general any other python file. See the [Django docs on settings](https://docs.djangoproject.com/en/3.1/topics/settings/#using-settings-in-python-code) to read more about how to use them.
 
+Some settings you will definitely want to change are:
+- `HACKATHON_NAME` - The name of your hackathon, for use in templates
+- `DEFAULT_FROM_EMAIL` - This can be used in templates, and it will also be used by [Django's email system](https://docs.djangoproject.com/en/3.1/topics/email/))
+- `CONTACT_EMAIL` - By default, the same as `DEFAULT_FROM_EMAIL`. The email users should contact you at, for use in templates
+- `REGISTRATION_OPEN_DATE` - When registration opens
+- `REGISTRATION_CLOSE_DATE` - When registration closes
+- `EVENT_START_DATE` - When the event starts
+- `EVENT_END_DATE` - When the event ends
+- `MEDIA_ROOT` - The path on the server where user-uploaded files will end up, including resumes
+
+You will also need to set the necessary settings for your email server, so that Django can send emails to users. [Read about those settings here](https://docs.djangoproject.com/en/3.1/topics/email/).
+
+Near the top of the settings file, you must also set `ALLOWED_HOSTS` and `CORS_ORIGIN_REGEX_WHITELIST` for your domain.
+
 For convenience, some constants have been passed into the context of all Jinja templates by default, so they can be used right away. See the [Jinja2 config file](hackathon_site/hackathon_site/jinja2.py) for full details.
+
+## Deploying
+This template may be deployed however you wish, we recommend you read [Django's documentation on deploying](https://docs.djangoproject.com/en/3.1/howto/deployment/). 
+
+[Gunicorn](https://gunicorn.org/) is included in `requirements.txt` already, and deploying through gunicorn with a reverse proxy such as [Nginx](https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/) is our recommended approach. The template is fully configured to be deployed under a subdirectory of your website through a reverse proxy, provided that the `SCRIPT_NAME` header is set. You may also set the path prefix explicitly in the settings file with [`FORCE_SCRIPT_NAME`](https://docs.djangoproject.com/en/2.2/ref/settings/#force-script-name).
+
+### Serving static files
+Static files are configured to be served under the `static/` path, and are expected to be in a folder called `static` in the django project root (adjacent to `manage.py`). In production, you should run `python manage.py collectstatic` to move all static files into the `static` folder, and configure your web server to serve them directly. Read more about [managing static files in Django in the docs](https://docs.djangoproject.com/en/3.1/howto/static-files/).
+
+### Serving user uploaded files
+User-uploaded files are handled differently in Django than static files. We recommend you read the pages on Django [file uploads](https://docs.djangoproject.com/en/3.1/topics/http/file-uploads/) and [the security of user-uploaded content](https://docs.djangoproject.com/en/3.1/topics/security/#user-uploaded-content-security) before proceeding.
+
+This template is configured to expect user-uploaded content to be served at `media/`, per the `MEDIA_URL` setting (you are free to change this, for example to an off-domain URL). User-uploaded content will be put in the folder defined by `MEDIA_ROOT`, which defaults to `/var/www/media/` and should almost certainly be configured for your server. Whatever you set it to, make sure the folder exists and is accessible by Django.
+
+Some user-uploaded content, such as resumes, should not be served to the general public. Others, such as pictures of hardware, should be. Hence, we recommend the following:
+
+- Upload all public-facing files with the prefix `uploads/`, so that they end up at `media/uploads/`. Configure your web server to serve this folder, e.g. `/var/www/media/uploads/`, to `media/uploads/` under your domain.
+- Upload all private files to another prefix, e.g. `resumes/`, so that they end up at e.g. `media/resumes/`. For any users that should be able to see these files (such as staff members in this case), have a view that validates the user's permission, then reads in the data from disk and returns it directly in the HTTP response. Keep in mind that there are performance downsides to this approach.
