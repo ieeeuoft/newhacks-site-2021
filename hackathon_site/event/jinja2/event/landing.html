@@ -48,6 +48,7 @@
                         <a href="{{ url("event:dashboard") }}" class="btn-large waves-effect waves-light colorBtn">Go to Dashboard</a>
                     {% endif %}
                 {% elif registration_open %}
+                    <span style="color: red">Open for testing only - your application will be discarded</span> <br />
                     <a href="{{ url("registration:signup") }}" class="btn-large waves-effect waves-light colorBtn">Apply</a>
                 {% endif %}
             </div>
