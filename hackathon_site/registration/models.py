@@ -75,7 +75,7 @@ class Application(models.Model):
             )
         ],
     )
-    school = models.CharField(max_length=255, null=False,)
+    school = models.CharField(max_length=255, null=False)
     study_level = models.CharField(
         max_length=50, choices=STUDY_LEVEL_CHOICES, null=False
     )
@@ -99,9 +99,34 @@ class Application(models.Model):
         ],
         null=False,
     )
-    q1 = models.TextField(null=False, help_text="First question?", max_length=1000)
-    q2 = models.TextField(null=False, help_text="Second question?", max_length=1000)
-    q3 = models.TextField(null=False, help_text="Third question?", max_length=1000)
+    address_line_1 = models.CharField(
+        max_length=255, help_text="Address Line 1", null=True, blank=True
+    )
+    address_line_2 = models.CharField(
+        max_length=255, help_text="Address Line 2", null=True, blank=True
+    )
+    city = models.CharField(max_length=255, null=True, blank=True)
+    state = models.CharField(
+        max_length=255, help_text="Province / State", null=True, blank=True
+    )
+    country = models.CharField(max_length=255, null=True, blank=True)
+    postal_code = models.CharField(
+        max_length=10, help_text="Postal Code", null=True, blank=True
+    )
+
+    q1 = models.TextField(
+        null=False,
+        help_text="Why do you want to participate in NewHacks?",
+        max_length=1000,
+    )
+    q2 = models.TextField(
+        null=False,
+        help_text="Tell us about your experience with software or other topics relevant to NewHacks!",
+        max_length=1000,
+    )
+    q3 = models.TextField(
+        null=False, help_text="How did you hear about NewHacks?", max_length=100
+    )
     conduct_agree = models.BooleanField(
         help_text="I have read and agree to the code of conduct.",
         blank=False,

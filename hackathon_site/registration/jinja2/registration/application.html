@@ -31,19 +31,41 @@
 {% endblock %}
 
 {% block form_inputs %}
-    {% for field in form %}
-        {% if field.field.widget.__class__.__name__ == "Textarea" %}
-            {{ render_field(field, size="s12", show_help_text_as_label=True) }}
-        {% elif field.field.widget.input_type == "select" %}
-            {{ render_field(field, size="s12 select2-wrapper") }}
-        {% elif field.field.widget.input_type == "file" %}
-            {{ render_field(field, size="s12", show_label=False) }}
-        {% elif field.field.widget.input_type == "checkbox" %}
-            {{ render_checkbox_field(field, size="s12") }}
-        {% else %}
-            {{ render_field(field, size="s12") }}
-        {% endif %}
-    {% endfor %}
+    <div class="col s12">
+        <h4>Address</h4>
+        <p>This is optional. You can provide us your address and we can ship you NewHacks swag! Note that we are only able to ship to Canada, and this does not guarantee that we will be able to send you anything.</p>
+        <br />
+    </div>
+    {{ render_field(form.address_line_1, show_help_text_as_label=True) }}
+    {{ render_field(form.address_line_2, show_help_text_as_label=True) }}
+    {{ render_field(form.city, size="m6 s12") }}
+    {{ render_field(form.postal_code, size="m6 s12", show_help_text_as_label=True) }}
+    {{ render_field(form.state, size="m6 s12", show_help_text_as_label=True) }}
+    {{ render_field(form.country, size="m6 s12") }}
+
+    <div class="col s12">
+        <h4>Personal Information</h4>
+        <br />
+    </div>
+    {{ render_field(form.birthday) }}
+    {{ render_field(form.gender, size="s12 select2-wrapper") }}
+    {{ render_field(form.ethnicity, size="s12 select2-wrapper") }}
+    {{ render_field(form.phone_number) }}
+    {{ render_field(form.school, size="s12 select2-wrapper") }}
+    {{ render_field(form.study_level, size="s12 select2-wrapper") }}
+    {{ render_field(form.graduation_year) }}
+    {{ render_field(form.resume, show_label=False) }}
+
+    <div class="col s12">
+        <h4>Questions</h4>
+        <br />
+    </div>
+    {{ render_field(form.q1, show_help_text_as_label=True) }}
+    {{ render_field(form.q2, show_help_text_as_label=True) }}
+    {{ render_field(form.q3, show_help_text_as_label=True) }}
+
+    {{ render_checkbox_field(form.conduct_agree) }}
+    {{ render_checkbox_field(form.data_agree) }}
 {% endblock %}
 
 {% block form_button %}
