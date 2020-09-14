@@ -106,7 +106,7 @@ class ApplicationForm(forms.ModelForm):
                 attrs={"class": "select2-school-select"},
                 choices=((None, ""),),
             ),
-            "resume": MaterialFileInput(),
+            "resume": MaterialFileInput(attrs={"accept": ".pdf"}),
             "q1": forms.Textarea(
                 attrs={"class": "materialize-textarea", "data-length": 1000,}
             ),

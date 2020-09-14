@@ -32,6 +32,15 @@
 
 {% block form_inputs %}
     <div class="col s12">
+        <h4>Personal Information</h4>
+        <br />
+    </div>
+    {{ render_field(form.birthday, size="s12 m6") }}
+    {{ render_field(form.phone_number, size="s12 m6") }}
+    {{ render_field(form.gender, size="s12 m6 select2-wrapper") }}
+    {{ render_field(form.ethnicity, size="s12 m6 select2-wrapper") }}
+
+    <div class="col s12">
         <h4>Address</h4>
         <p>This is optional. You can provide us your address and we can ship you NewHacks swag! Note that we are only able to ship to Canada, and this does not guarantee that we will be able to send you anything.</p>
         <br />
@@ -44,17 +53,13 @@
     {{ render_field(form.country, size="m6 s12") }}
 
     <div class="col s12">
-        <h4>Personal Information</h4>
+        <h4>Education</h4>
         <br />
     </div>
-    {{ render_field(form.birthday) }}
-    {{ render_field(form.gender, size="s12 select2-wrapper") }}
-    {{ render_field(form.ethnicity, size="s12 select2-wrapper") }}
-    {{ render_field(form.phone_number) }}
-    {{ render_field(form.school, size="s12 select2-wrapper") }}
-    {{ render_field(form.study_level, size="s12 select2-wrapper") }}
-    {{ render_field(form.graduation_year) }}
-    {{ render_field(form.resume, show_label=False) }}
+    {{ render_field(form.school, size="s12 m6 select2-wrapper") }}
+    {{ render_field(form.study_level, size="s12 m6 select2-wrapper") }}
+    {{ render_field(form.graduation_year, size="s12 m4") }}
+    {{ render_field(form.resume, size="s12 m8 marginTop0", show_label=False) }}
 
     <div class="col s12">
         <h4>Questions</h4>

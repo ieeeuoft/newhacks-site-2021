@@ -385,7 +385,8 @@ strong {
     font-family: font(header), sans-serif;
     background-color: color(secondary);
 
-    &:hover {
+    &:hover,
+    &:focus {
         background-color: #d2a300 !important;
     }
 }
@@ -613,5 +614,9 @@ strong {
     @include responsive(sm-down) {
         padding: 0 !important;
     }
+}
+
+.marginTop0 {
+    margin-top: 0 !important;
 }
 // End of formatting stuff
