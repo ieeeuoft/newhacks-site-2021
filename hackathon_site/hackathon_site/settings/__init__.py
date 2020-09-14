@@ -122,7 +122,7 @@ FORM_RENDERER = "django.forms.renderers.TemplatesSetting"
 WSGI_APPLICATION = "hackathon_site.wsgi.application"
 
 LOGIN_REDIRECT_URL = reverse_lazy("event:dashboard")
-
+LOGOUT_REDIRECT_URL = reverse_lazy("event:index")
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
@@ -205,8 +205,17 @@ else:
 HACKATHON_NAME = "NewHacks"
 CONTACT_EMAIL = DEFAULT_FROM_EMAIL
 
-REGISTRATION_OPEN_DATE = datetime(2020, 9, 18, tzinfo=pytz.timezone(TIME_ZONE))
-REGISTRATION_CLOSE_DATE = datetime(2020, 10, 22, tzinfo=pytz.timezone(TIME_ZONE))
+# REGISTRATION_OPEN_DATE = datetime(2020, 9, 18, tzinfo=pytz.timezone(TIME_ZONE))
+# REGISTRATION_CLOSE_DATE = datetime(2020, 10, 22, tzinfo=pytz.timezone(TIME_ZONE))
+
+# FOR TESTING ONLY
+REGISTRATION_OPEN_DATE = datetime(
+    2020, 9, 14, 19, 30, 0, tzinfo=pytz.timezone(TIME_ZONE)
+)
+REGISTRATION_CLOSE_DATE = datetime(
+    2020, 9, 14, 21, 0, 0, tzinfo=pytz.timezone(TIME_ZONE)
+)
+
 EVENT_START_DATE = datetime(2020, 11, 7, 10, 0, 0, tzinfo=pytz.timezone(TIME_ZONE))
 EVENT_END_DATE = datetime(2020, 11, 8, 17, 0, 0, tzinfo=pytz.timezone(TIME_ZONE))
 

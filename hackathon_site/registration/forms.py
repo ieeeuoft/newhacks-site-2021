@@ -79,6 +79,12 @@ class ApplicationForm(forms.ModelForm):
     class Meta:
         model = Application
         fields = [
+            "address_line_1",
+            "address_line_2",
+            "city",
+            "state",
+            "country",
+            "postal_code",
             "birthday",
             "gender",
             "ethnicity",
@@ -100,27 +106,15 @@ class ApplicationForm(forms.ModelForm):
                 attrs={"class": "select2-school-select"},
                 choices=((None, ""),),
             ),
-            "resume": MaterialFileInput(),
+            "resume": MaterialFileInput(attrs={"accept": ".pdf"}),
             "q1": forms.Textarea(
-                attrs={
-                    "class": "materialize-textarea",
-                    "placeholder": "I enjoy cake",
-                    "data-length": 1000,
-                }
+                attrs={"class": "materialize-textarea", "data-length": 1000,}
             ),
             "q2": forms.Textarea(
-                attrs={
-                    "class": "materialize-textarea",
-                    "placeholder": "Cake is wonderful",
-                    "data-length": 1000,
-                }
+                attrs={"class": "materialize-textarea", "data-length": 1000,}
             ),
             "q3": forms.Textarea(
-                attrs={
-                    "class": "materialize-textarea",
-                    "placeholder": "I could really go for cake right now",
-                    "data-length": 1000,
-                }
+                attrs={"class": "materialize-textarea", "data-length": 100,}
             ),
             "phone_number": forms.TextInput(attrs={"placeholder": "+1 (123) 456-7890"}),
             "graduation_year": forms.NumberInput(attrs={"placeholder": 2020}),

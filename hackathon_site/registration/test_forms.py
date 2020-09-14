@@ -134,6 +134,18 @@ class ApplicationFormTestCase(SetupUserMixin, TestCase):
         self.assertIn("resume", form.errors)
         self.assertIn("This field is required.", form.errors["resume"])
 
+    def test_with_optional_fields(self):
+        data = self.data.copy()
+        data["address_line_1"] = "1 Foo Bar St"
+        data["address_line_2"] = "#42"
+        data["city"] = "Foobarville"
+        data["country"] = "Fooland"
+        data["postal_code"] = "1A1A1A"
+        data["state"] = "Barland"
+
+        form = self._build_form(data=data)
+        self.assertTrue(form.is_valid())
+
     def test_user_already_has_application(self):
         team = Team.objects.create()
         Application.objects.create(
