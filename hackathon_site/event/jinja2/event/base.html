@@ -49,7 +49,7 @@
                                 <li>
                                     <a href="{{ url("event:logout") }}" class="btn-small waves-effect waves-light colorBtn">Logout</a>
                                 </li>
-                            {% elif localtime(now) > registration_open_date %}
+                            {% elif localtime(now()) > registration_open_date %}
                                 <li>
                                     <a href="{{ url("event:login") }}" class="btn-small waves-effect waves-light colorBtn">Login</a>
                                 </li>
