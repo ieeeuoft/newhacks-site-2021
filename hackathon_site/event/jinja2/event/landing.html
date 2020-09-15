@@ -48,7 +48,6 @@
                         <a href="{{ url("event:dashboard") }}" class="btn-large waves-effect waves-light colorBtn">Go to Dashboard</a>
                     {% endif %}
                 {% elif is_registration_open() %}
-                    <span style="color: red">Open for testing only - your application will be discarded</span> <br />
                     <a href="{{ url("registration:signup") }}" class="btn-large waves-effect waves-light colorBtn">Apply</a>
                 {% endif %}
             </div>
@@ -74,7 +73,7 @@
                 </div>
 
                 <div class="col m12 l5 flexColCenter">
-                    <h3 class="center white-text">Registration Opens In</h3>
+                    <h3 class="center white-text" id="countdownTitle">Registration Opens In</h3>
                     <div class="countdown">
                         <div class="col countdownNum secondaryColor">
                             <div class="countdownWhiteLine"></div>
