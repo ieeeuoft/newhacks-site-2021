@@ -21,6 +21,7 @@ def environment(**options):
             "url": reverse,
             "localtime": template_localtime,
             "is_registration_open": is_registration_open,
+            "now": now,
             # Variables
             "event_name": settings.HACKATHON_NAME,
             "registration_open_date": settings.REGISTRATION_OPEN_DATE,
@@ -29,7 +30,6 @@ def environment(**options):
             "event_end_date": settings.EVENT_END_DATE,
             "from_email": settings.DEFAULT_FROM_EMAIL,
             "contact_email": settings.CONTACT_EMAIL,
-            "now": now(),
         }
     )
     return env
