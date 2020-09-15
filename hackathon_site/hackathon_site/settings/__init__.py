@@ -213,10 +213,10 @@ CONTACT_EMAIL = DEFAULT_FROM_EMAIL
 
 # FOR TESTING ONLY
 REGISTRATION_OPEN_DATE = datetime(
-    2020, 9, 14, 20, 40, 0, tzinfo=pytz.timezone(TIME_ZONE)
+    2020, 9, 14, 22, 50, 0, tzinfo=pytz.timezone(TIME_ZONE)
 )
 REGISTRATION_CLOSE_DATE = datetime(
-    2020, 9, 14, 21, 40, 0, tzinfo=pytz.timezone(TIME_ZONE)
+    2020, 9, 14, 23, 5, 0, tzinfo=pytz.timezone(TIME_ZONE)
 )
 
 EVENT_START_DATE = datetime(2020, 11, 7, 10, 0, 0, tzinfo=pytz.timezone(TIME_ZONE))
