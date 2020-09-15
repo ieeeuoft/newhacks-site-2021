@@ -32,6 +32,8 @@ SECRET_KEY = os.environ["SECRET_KEY"]
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(int(os.environ.get("DEBUG", 0)))
 
+IN_TESTING = False  # Overwritten by hackathon_site.settings.ci
+
 if DEBUG:
     ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
     INTERNAL_IPS = ["localhost", "127.0.0.1"]
@@ -124,6 +126,7 @@ WSGI_APPLICATION = "hackathon_site.wsgi.application"
 LOGIN_REDIRECT_URL = reverse_lazy("event:dashboard")
 LOGOUT_REDIRECT_URL = reverse_lazy("event:index")
 
+
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
@@ -210,18 +213,14 @@ CONTACT_EMAIL = DEFAULT_FROM_EMAIL
 
 # FOR TESTING ONLY
 REGISTRATION_OPEN_DATE = datetime(
-    2020, 9, 14, 20, 40, 0, tzinfo=pytz.timezone(TIME_ZONE)
+    2020, 9, 14, 22, 50, 0, tzinfo=pytz.timezone(TIME_ZONE)
 )
 REGISTRATION_CLOSE_DATE = datetime(
-    2020, 9, 14, 21, 40, 0, tzinfo=pytz.timezone(TIME_ZONE)
+    2020, 9, 14, 23, 5, 0, tzinfo=pytz.timezone(TIME_ZONE)
 )
 
 EVENT_START_DATE = datetime(2020, 11, 7, 10, 0, 0, tzinfo=pytz.timezone(TIME_ZONE))
 EVENT_END_DATE = datetime(2020, 11, 8, 17, 0, 0, tzinfo=pytz.timezone(TIME_ZONE))
 
 # Registration settings
-# datetime.now() returns the system native time, so this assumes that the system timezone
-# is configured to match TIME_ZONE. We then make the datetime object timezone-aware.
-now = datetime.now().replace(tzinfo=TZ_INFO)
 ACCOUNT_ACTIVATION_DAYS = 7
-REGISTRATION_OPEN = REGISTRATION_OPEN_DATE <= now < REGISTRATION_CLOSE_DATE
