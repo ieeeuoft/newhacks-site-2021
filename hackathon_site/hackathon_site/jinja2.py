@@ -1,7 +1,9 @@
+from datetime import datetime
+
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django.conf import settings
 from django.urls import reverse
-from django.utils.timezone import template_localtime, now
+from django.utils.timezone import template_localtime
 from jinja2 import Environment
 
 from hackathon_site.utils import is_registration_open
@@ -10,6 +12,10 @@ from hackathon_site.utils import is_registration_open
 # @patch or @override_settings decorators, because it is evaluated before
 # the test methods. If you have tests that rely on these values, explicitly
 # set them in the context of your views.
+
+
+def _now():
+    return datetime.now().replace(tzinfo=settings.TZ_INFO)
 
 
 def environment(**options):
@@ -21,7 +27,7 @@ def environment(**options):
             "url": reverse,
             "localtime": template_localtime,
             "is_registration_open": is_registration_open,
-            "now": now,
+            "now": _now,
             # Variables
             "event_name": settings.HACKATHON_NAME,
             "registration_open_date": settings.REGISTRATION_OPEN_DATE,
