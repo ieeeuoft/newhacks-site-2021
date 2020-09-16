@@ -1,15 +1,16 @@
-from datetime import date
+from datetime import date, datetime
 from unittest.mock import patch
 
 from django.conf import settings
 from django.core.files.uploadedfile import SimpleUploadedFile
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.urls import reverse
 from rest_framework import status
 
 from hackathon_site.tests import SetupUserMixin
 from registration.forms import ApplicationForm
 from registration.models import Application, Team, User
+from registration.views import SignUpView
 
 
 class SignUpViewTestCase(SetupUserMixin, TestCase):
@@ -58,22 +59,93 @@ class SignUpViewTestCase(SetupUserMixin, TestCase):
         self.assertRedirects(response, reverse("event:dashboard"))
 
 
-class ActivationViewTestCase(TestCase):
+class SignUpClosedViewTestCase(TestCase):
+    def setUp(self):
+        self.view = reverse("registration:signup_closed")
+
+    @override_settings(
+        REGISTRATION_OPEN_DATE=datetime(2020, 1, 2, tzinfo=settings.TZ_INFO)
+    )
+    @override_settings(
+        REGISTRATION_CLOSE_DATE=datetime(2020, 1, 3, tzinfo=settings.TZ_INFO)
+    )
+    @patch("registration.views._now")
+    def test_not_open_yet(self, mock_now):
+        mock_now.return_value = datetime(2020, 1, 1, tzinfo=settings.TZ_INFO)
+        response = self.client.get(self.view)
+        self.assertContains(response, "Applications have not opened yet")
+        self.assertContains(
+            response, settings.REGISTRATION_OPEN_DATE.strftime("%B %-d, %Y")
+        )
+
+    @override_settings(
+        REGISTRATION_OPEN_DATE=datetime(2020, 1, 1, tzinfo=settings.TZ_INFO)
+    )
+    @override_settings(
+        REGISTRATION_CLOSE_DATE=datetime(2020, 1, 3, tzinfo=settings.TZ_INFO)
+    )
+    @patch("registration.views._now")
+    def test_registration_open(self, mock_now):
+        mock_now.return_value = datetime(2020, 1, 2, tzinfo=settings.TZ_INFO)
+        response = self.client.get(self.view)
+        self.assertContains(response, "Applications are open!")
+        self.assertContains(response, reverse("registration:signup"))
+
+    @override_settings(
+        REGISTRATION_OPEN_DATE=datetime(2020, 1, 1, tzinfo=settings.TZ_INFO)
+    )
+    @override_settings(
+        REGISTRATION_CLOSE_DATE=datetime(2020, 1, 2, tzinfo=settings.TZ_INFO)
+    )
+    @patch("registration.views._now")
+    def test_closed(self, mock_now):
+        mock_now.return_value = datetime(2020, 1, 3, tzinfo=settings.TZ_INFO)
+        response = self.client.get(self.view)
+        self.assertContains(response, "Applications have closed")
+        self.assertContains(
+            response, settings.REGISTRATION_CLOSE_DATE.strftime("%B %-d, %Y")
+        )
+
+
+class ActivationViewTestCase(SetupUserMixin, TestCase):
     """
-    Test the activation view. This is nearly identical to django_registration's
-    ActivationView, we just add the contact email into the template context.
-    Hence, that's the only thing we test for.
+    Test the activation view
     """
 
     def setUp(self):
         super().setUp()
-        self.view = reverse(
-            "registration:activate", kwargs={"activation_key": "i-am-fake"}
-        )
+        self.view_name = "registration:activate"
 
-    def test_error_page_has_contact_email(self):
-        response = self.client.get(self.view)
+        self.activation_key = SignUpView().get_activation_key(self.user)
+
+    def _build_view(self, activation_key):
+        return reverse(self.view_name, kwargs={"activation_key": activation_key})
+
+    def test_invalid_key(self):
+        response = self.client.get(self._build_view("i-am-fake"))
+        self.assertContains(response, "Activation link is invalid")
         self.assertContains(response, settings.CONTACT_EMAIL)
+
+    def test_account_already_activated(self):
+        self.user.is_active = True
+        self.user.save()
+        response = self.client.get(self._build_view(self.activation_key))
+        self.assertContains(response, "Account already activated")
+        self.assertContains(response, reverse("event:login"))
+        self.assertNotContains(response, settings.CONTACT_EMAIL)
+
+    @override_settings(ACCOUNT_ACTIVATION_DAYS=0)
+    def test_activation_link_expired(self):
+        response = self.client.get(self._build_view(self.activation_key))
+        self.assertContains(response, "Activation link has expired")
+        self.assertContains(response, settings.CONTACT_EMAIL)
+
+    def test_successful_activation(self):
+        self.user.is_active = False
+        self.user.save()
+        activation_key = SignUpView().get_activation_key(self.user)
+        response = self.client.get(self._build_view(activation_key))
+        self.assertRedirects(response, reverse("event:login"))
 
 
 class ApplicationViewTestCase(SetupUserMixin, TestCase):
@@ -89,6 +161,7 @@ class ApplicationViewTestCase(SetupUserMixin, TestCase):
             "school": "UofT",
             "study_level": "other",
             "graduation_year": 2020,
+            "program": "Engineering",
             "q1": "hi",
             "q2": "there",
             "q3": "foo",
@@ -129,15 +202,20 @@ class ApplicationViewTestCase(SetupUserMixin, TestCase):
         self.assertEqual(Application.objects.count(), 1)
         self.assertEqual(Application.objects.first().user, self.user)
 
-    def test_redirects_get_if_has_application(self):
+    def test_redirects_if_has_application(self):
         Application.objects.create(user=self.user, team=self.team, **self.data)
         self._login()
         response = self.client.get(self.view)
         self.assertRedirects(response, reverse("event:dashboard"))
+        response = self.client.post(self.view, data=self.post_data)
+        self.assertRedirects(response, reverse("event:dashboard"))
 
-    def test_redirects_post_if_has_application(self):
-        Application.objects.create(user=self.user, team=self.team, **self.data)
+    @patch("registration.views.is_registration_open")
+    def test_redirects_if_registration_closed(self, mock_is_registration_open):
+        mock_is_registration_open.return_value = False
         self._login()
+        response = self.client.get(self.view)
+        self.assertRedirects(response, reverse("event:dashboard"))
         response = self.client.post(self.view, data=self.post_data)
         self.assertRedirects(response, reverse("event:dashboard"))
 
@@ -153,16 +231,6 @@ class MiscRegistrationViewsTestCase(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         # Test that the default from email was passed in as a context variable
         self.assertContains(response, settings.DEFAULT_FROM_EMAIL)
-
-    def test_signup_closed(self):
-        response = self.client.get(reverse("registration:signup_closed"))
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        # Test that context variables were passed in
-        self.assertContains(response, settings.HACKATHON_NAME)
-        self.assertContains(response, settings.CONTACT_EMAIL)
-        self.assertContains(
-            response, settings.REGISTRATION_CLOSE_DATE.strftime("%B %-d, %Y")
-        )
 
 
 class LeaveTeamViewTestCase(SetupUserMixin, TestCase):

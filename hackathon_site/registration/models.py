@@ -90,6 +90,7 @@ class Application(models.Model):
             ),
         ],
     )
+    program = models.CharField(max_length=255, help_text="Program or Major", null=False)
     resume = models.FileField(
         upload_to="applications/resumes/",
         validators=[
