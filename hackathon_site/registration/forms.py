@@ -93,6 +93,7 @@ class ApplicationForm(forms.ModelForm):
             "school",
             "study_level",
             "graduation_year",
+            "program",
             "resume",
             "q1",
             "q2",

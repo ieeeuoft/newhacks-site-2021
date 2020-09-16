@@ -89,6 +89,7 @@ class ApplicationViewTestCase(SetupUserMixin, TestCase):
             "school": "UofT",
             "study_level": "other",
             "graduation_year": 2020,
+            "program": "Engineering",
             "q1": "hi",
             "q2": "there",
             "q3": "foo",
