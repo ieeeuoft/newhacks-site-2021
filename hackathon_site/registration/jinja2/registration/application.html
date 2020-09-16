@@ -21,7 +21,6 @@
 {% set form_action=url("registration:application") %}
 
 {% block form_description %}
-    <span style="color: red">Open for testing only - your application will be discarded</span>
     {% if form.non_field_errors %}
         <div class="row col s12">
         {% for error in form.non_field_errors() %}
