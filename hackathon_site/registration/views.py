@@ -1,10 +1,12 @@
+from datetime import datetime
+
 from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseBadRequest
 from django.shortcuts import redirect
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
-from django.views.generic.base import View
+from django.views.generic.base import View, TemplateView
 from django.views.generic.edit import CreateView
 from django_registration.backends.activation.views import (
     RegistrationView,
@@ -14,6 +16,10 @@ from django_registration.backends.activation.views import (
 from hackathon_site.utils import is_registration_open
 from registration.forms import SignUpForm, ApplicationForm
 from registration.models import Team
+
+
+def _now():
+    return datetime.now().replace(tzinfo=settings.TZ_INFO)
 
 
 class SignUpView(RegistrationView):
@@ -88,16 +94,27 @@ class SignUpView(RegistrationView):
         return super().get(request, *args, **kwargs)
 
 
-class ActivationView(_ActivationView):
-    success_url = reverse_lazy("event:dashboard")
-    # This page only gets rendered if something went wrong, otherwise
-    # the user is redirected
-    template_name = "registration/activation_failed.html"
+class SignUpClosedView(TemplateView):
+    template_name = "registration/signup_closed.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["email"] = settings.CONTACT_EMAIL
+
+        context.update(
+            {
+                "registration_close_date": settings.REGISTRATION_CLOSE_DATE,
+                "registration_open_date": settings.REGISTRATION_OPEN_DATE,
+                "now": _now,
+            }
+        )
         return context
+
+
+class ActivationView(_ActivationView):
+    success_url = reverse_lazy("event:login")
+    # This page only gets rendered if something went wrong, otherwise
+    # the user is redirected
+    template_name = "registration/activation_failed.html"
 
 
 class ApplicationView(LoginRequiredMixin, CreateView):
@@ -112,6 +129,9 @@ class ApplicationView(LoginRequiredMixin, CreateView):
 
     def dispatch(self, request, *args, **kwargs):
         if hasattr(request.user, "application"):
+            return redirect(reverse_lazy("event:dashboard"))
+
+        if not is_registration_open():
             return redirect(reverse_lazy("event:dashboard"))
 
         return super().dispatch(request, *args, **kwargs)
