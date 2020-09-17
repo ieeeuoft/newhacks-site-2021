@@ -209,13 +209,8 @@ else:
 HACKATHON_NAME = "NewHacks"
 CONTACT_EMAIL = DEFAULT_FROM_EMAIL
 
-# REGISTRATION_OPEN_DATE = datetime(2020, 9, 18, tzinfo=pytz.timezone(TIME_ZONE))
-# REGISTRATION_CLOSE_DATE = datetime(2020, 10, 22, tzinfo=pytz.timezone(TIME_ZONE))
-
-# Test window
-REGISTRATION_OPEN_DATE = datetime(2020, 9, 16, 20, 0, tzinfo=pytz.timezone(TIME_ZONE))
-REGISTRATION_CLOSE_DATE = datetime(2020, 9, 16, 21, 0, tzinfo=pytz.timezone(TIME_ZONE))
-
+REGISTRATION_OPEN_DATE = datetime(2020, 9, 18, tzinfo=pytz.timezone(TIME_ZONE))
+REGISTRATION_CLOSE_DATE = datetime(2020, 10, 22, tzinfo=pytz.timezone(TIME_ZONE))
 EVENT_START_DATE = datetime(2020, 11, 7, 10, 0, 0, tzinfo=pytz.timezone(TIME_ZONE))
 EVENT_END_DATE = datetime(2020, 11, 8, 17, 0, 0, tzinfo=pytz.timezone(TIME_ZONE))
 
