@@ -129,13 +129,15 @@ class Application(models.Model):
         null=False, help_text="How did you hear about NewHacks?", max_length=100
     )
     conduct_agree = models.BooleanField(
-        help_text="I have read and agree to the code of conduct.",
+        help_text="I have read and agree to the "
+        '<a href="https://docs.google.com/document/d/1Uec_PDknY-9nSMc7QOqSTFb54I71uGX6oZaoTm1u8Q0/">code of conduct</a>.',
         blank=False,
         null=False,
     )
     data_agree = models.BooleanField(
         help_text="I consent to have the data in this application collected for event purposes "
-        "including administration, ranking, and event communication.",
+        "including administration, ranking, and event communication, and to be shared with event "
+        "sponsors and partners.",
         blank=False,
         null=False,
     )
