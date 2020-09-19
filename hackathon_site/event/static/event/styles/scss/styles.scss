@@ -54,7 +54,7 @@ strong {
 // Navbar stuff
 .logoNav100 {
     height: 100%;
-    padding: 5px;
+    padding: 5px 0;
 }
 
 .logoNav {
@@ -63,7 +63,7 @@ strong {
     padding: 10px 0;
 
     &Scrolled {
-        padding: 5px;
+        padding: 5px 0;
         height: 100%;
     }
 
@@ -84,7 +84,7 @@ strong {
 
     @include responsive(lg-down) {
         height: 64px;
-        padding: 5px;
+        padding: 5px 0;
     }
 
     @include responsive(md-down) {
@@ -95,8 +95,14 @@ strong {
 .sidenav {
     background: linear-gradient(180deg, #1a093e 30%, #2f1e52 60%, #4b3676 80%);
 
-    li a {
-        color: #fff !important;
+    li {
+        & > a {
+            color: #fff !important;
+        }
+
+        & > .colorBtn {
+            color: #000 !important;
+        }
     }
 
     li > a:hover,
