@@ -29,13 +29,17 @@ def environment(**options):
             "is_registration_open": is_registration_open,
             "now": _now,
             # Variables
-            "event_name": settings.HACKATHON_NAME,
+            "hackathon_name": settings.HACKATHON_NAME,
             "registration_open_date": settings.REGISTRATION_OPEN_DATE,
             "registration_close_date": settings.REGISTRATION_CLOSE_DATE,
             "event_start_date": settings.EVENT_START_DATE,
             "event_end_date": settings.EVENT_END_DATE,
+            "waitlisted_acceptance_start_time": settings.WAITLISTED_ACCEPTANCE_START_TIME,
+            "final_review_response_date": settings.FINAL_REVIEW_RESPONSE_DATE,
             "from_email": settings.DEFAULT_FROM_EMAIL,
             "contact_email": settings.CONTACT_EMAIL,
+            "participant_package_link": settings.PARTICIPANT_PACKAGE_LINK,
+            "chat_room_link": settings.CHAT_ROOM_LINK,
         }
     )
     return env
