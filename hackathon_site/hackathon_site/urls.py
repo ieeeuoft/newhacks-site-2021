@@ -41,17 +41,12 @@ urlpatterns = [
         name="schema-swagger-ui",
     ),
     path("registration/", include("registration.urls", namespace="registration")),
+    path(
+        "%s/applications/resumes/<str:filename>" % settings.MEDIA_URL.strip("/"),
+        ResumeView.as_view(),
+        name="resume",
+    ),
 ]
-
-if not settings.MEDIA_URL.startswith("http"):
-    urlpatterns += [
-        path(
-            "%s/applications/resumes/<str:filename>" % settings.MEDIA_URL.strip("/"),
-            ResumeView.as_view(),
-            name="resume",
-        ),
-    ]
-
 
 if settings.DEBUG:
     import debug_toolbar
