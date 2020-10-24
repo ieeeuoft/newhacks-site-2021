@@ -125,10 +125,6 @@ strong {
             0 1px 5px 0 rgba(0, 0, 0, 0.2);
     }
 }
-
-.active {
-    color: color(secondary);
-}
 // End of navbar stuff
 
 // Landing section
@@ -390,6 +386,22 @@ strong {
     &:focus {
         background-color: #d2a300 !important;
     }
+}
+
+.redBtn {
+    font-weight: bold !important;
+    text-align: center;
+    text-transform: uppercase;
+    color: #f3c7c7 !important;
+    background-color: #b40000 !important;
+
+    &:hover {
+        background-color: #870000 !important;
+    }
+}
+
+.active {
+    color: color(secondary);
 }
 // End of colors
 

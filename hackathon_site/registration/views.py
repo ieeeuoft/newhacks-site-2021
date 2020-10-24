@@ -1,11 +1,14 @@
-from datetime import datetime
+from datetime import datetime, timedelta
+import mimetypes
+from pathlib import Path
 
 from django.conf import settings
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponseBadRequest
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.http import HttpResponseBadRequest, FileResponse, Http404
 from django.shortcuts import redirect
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
+from django.utils._os import safe_join
 from django.views.generic.base import View, TemplateView
 from django.views.generic.edit import CreateView
 from django_registration.backends.activation.views import (
@@ -15,7 +18,8 @@ from django_registration.backends.activation.views import (
 
 from hackathon_site.utils import is_registration_open
 from registration.forms import SignUpForm, ApplicationForm
-from registration.models import Team
+from registration.models import Team as RegistrationTeam
+from event.models import Team as EventTeam, Profile
 
 
 def _now():
@@ -32,11 +36,6 @@ class SignUpView(RegistrationView):
 
     def registration_allowed(self):
         return is_registration_open()
-
-    def get_email_context(self, activation_key):
-        context = super().get_email_context(activation_key)
-        context["hackathon_name"] = settings.HACKATHON_NAME
-        return context
 
     def send_activation_email(self, user):
         """
@@ -160,7 +159,7 @@ class LeaveTeamView(LoginRequiredMixin, View):
         team = application.team
 
         # Leaving a team automatically puts them on a new team
-        application.team = Team.objects.create()
+        application.team = RegistrationTeam.objects.create()
         application.save()
 
         # Delete the team if it is empty
@@ -174,3 +173,105 @@ class LeaveTeamView(LoginRequiredMixin, View):
 
     def post(self, request, *args, **kwargs):
         return self.leave_team(request)
+
+
+class ResumeView(LoginRequiredMixin, PermissionRequiredMixin, View):
+    permission_required = "registration.view_application"
+
+    def get(self, request, *args, **kwargs):
+        """
+        Return requested resume, if found. Requires registration.view_application
+        permissions.
+
+        This is pretty much a simplified version of Django's static file serve
+        view: https://github.com/django/django/blob/stable/3.1.x/django/views/static.py#L19.
+
+        User-uploaded files that don't require a permissions check should be served
+        from a regular web server.
+        """
+
+        filepath = Path(
+            safe_join(
+                settings.MEDIA_ROOT, "applications", "resumes", kwargs["filename"]
+            )
+        )
+
+        if not filepath.is_file():
+            raise Http404()
+
+        content_type, encoding = mimetypes.guess_type((str(filepath)))
+        content_type = content_type or "application/octet-stream"
+
+        response = FileResponse(filepath.open("rb"), content_type=content_type)
+        if encoding:
+            response["Content-Encoding"] = encoding
+
+        return response
+
+
+class RSVPView(LoginRequiredMixin, View):
+    """
+    This page checks if the RSVP deadline has passed and then does one of
+    the following:
+        1. If the deadline has passed, redirect to the dashboard
+        2. Otherwise if their decision was a 'yes', we note that and
+            create a profile for them
+        3. Otherwise if their decision was a 'no', we note that and remove
+            their profile and team if they had one.
+
+    Finally we redirect to the dashboard.
+    """
+
+    def get(self, request, *args, **kwargs):
+        decision = kwargs["rsvp"]
+
+        # Check for nulls
+        user = self.request.user
+        if not hasattr(user, "application"):
+            return HttpResponseBadRequest(
+                "You have not submitted an application.".encode(encoding="utf-8")
+            )
+
+        application = user.application
+        if not hasattr(application, "review"):
+            return HttpResponseBadRequest(
+                "Your application has not yet been reviewed.".encode(encoding="utf-8")
+            )
+
+        review = application.review
+        if not review.status == "Accepted":
+            return HttpResponseBadRequest(
+                "You cannot RSVP since your application has not yet been accepted.".encode(
+                    encoding="utf-8"
+                )
+            )
+
+        # Check if RSVP deadline has passed
+        if _now().date() > review.decision_sent_date + timedelta(
+            days=settings.RSVP_DAYS
+        ):
+            return redirect(reverse_lazy("event:dashboard"))
+
+        # Check decision
+        else:
+            if decision == "yes" and not application.rsvp:
+                application.rsvp = True
+                application.save()
+
+                profile = Profile(user=user, team=EventTeam.objects.create())
+                profile.save()
+
+            elif decision == "no" and (application.rsvp or application.rsvp is None):
+                application.rsvp = False
+                application.save()
+
+                # Delete the profile
+                if hasattr(request.user, "profile"):
+                    team = user.profile.team
+                    user.profile.delete()
+
+                    # Delete the team if it is empty
+                    if not team.profiles.exists():
+                        team.delete()
+
+        return redirect(reverse_lazy("event:dashboard"))

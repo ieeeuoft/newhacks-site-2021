@@ -1,5 +1,6 @@
 from datetime import date, datetime
 from unittest.mock import patch
+from uuid import uuid4
 
 from django.conf import settings
 from django.test import TestCase, override_settings
@@ -7,6 +8,7 @@ from django.test import TestCase, override_settings
 from event.models import User
 from hackathon_site.utils import is_registration_open
 from registration.models import Application, Team as RegistrationTeam
+from review.models import Review
 
 
 class SetupUserMixin:
@@ -48,26 +50,87 @@ class SetupUserMixin:
     def _apply(self):
         return self._apply_as_user(self.user)
 
-    def _make_full_registration_team(self, team=None):
+    @staticmethod
+    def _get_random_email():
+        """
+        Return a random email not associated with any user
+        """
+        uuid = uuid4().hex
+        email = f"{uuid[:10]}@{uuid[10:20]}.com"
+        while User.objects.filter(username=email).exists():
+            uuid = uuid4().hex
+            email = f"{uuid[:10]}@{uuid[10:20]}.com"
+        return email
+
+    def _make_full_registration_team(self, team=None, self_users=True):
         if team is None:
             team = RegistrationTeam.objects.create()
 
-        self.user2 = User.objects.create_user(
-            username="bob@ross.com", password="abcdef123"
-        )
-        self.user3 = User.objects.create_user(
-            username="franklin@carmichael", password="supersecret456"
-        )
-        self.user4 = User.objects.create_user(
-            username="lawren@harris", password="wxyz7890"
-        )
+        if self_users:
+            user1 = self.user
+            user2 = self.user2 = User.objects.create_user(
+                username="frank@johnston.com", password="hellothere31415"
+            )
+            user3 = self.user3 = User.objects.create_user(
+                username="franklin@carmichael.com", password="supersecret456"
+            )
+            user4 = self.user4 = User.objects.create_user(
+                username="lawren@harris.com", password="wxyz7890"
+            )
+        else:
+            # Make some random users
+            user1 = User.objects.create_user(
+                username=self._get_random_email(), password="foobar123"
+            )
+            user2 = User.objects.create_user(
+                username=self._get_random_email(), password="foobar123"
+            )
+            user3 = User.objects.create_user(
+                username=self._get_random_email(), password="foobar123"
+            )
+            user4 = User.objects.create_user(
+                username=self._get_random_email(), password="foobar123"
+            )
 
-        self._apply_as_user(self.user, team)
-        self._apply_as_user(self.user2, team)
-        self._apply_as_user(self.user3, team)
-        self._apply_as_user(self.user4, team)
+        self._apply_as_user(user1, team)
+        self._apply_as_user(user2, team)
+        self._apply_as_user(user3, team)
+        self._apply_as_user(user4, team)
 
         return team
+
+    def _review(
+        self, application=None, reviewer=None, **kwargs,
+    ):
+        if application is None:
+            application = self.user.application
+
+        if reviewer is None:
+            try:
+                self.reviewer = User.objects.get(username="arther@lismer.com")
+            except User.DoesNotExist:
+                self.reviewer = User.objects.create_user(
+                    username="arther@lismer.com", password="abcdef123"
+                )
+                reviewer = self.reviewer
+
+        decision_sent_date = kwargs.pop(
+            "decision_sent_date", datetime.now().replace(tzinfo=settings.TZ_INFO).date()
+        )
+
+        default_kwargs = {
+            "reviewer": reviewer,
+            "application": application,
+            "interest": 10,
+            "experience": 10,
+            "quality": 10,
+            "status": "Accepted",
+            "reviewer_comments": "Very good",
+            "decision_sent_date": decision_sent_date,
+        }
+        default_kwargs.update(kwargs)
+
+        self.review = Review.objects.create(**default_kwargs)
 
 
 @override_settings(IN_TESTING=False)
