@@ -12,7 +12,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
-from datetime import datetime
+from datetime import datetime, timedelta
 import os
 from pathlib import Path
 import pytz
@@ -78,6 +78,7 @@ INSTALLED_APPS = [
     "registration",
     "event",
     "hardware",
+    "review",
 ]
 
 MIDDLEWARE = [
@@ -142,6 +143,18 @@ DATABASES = {
     }
 }
 
+# Cache
+# https://docs.djangoproject.com/en/3.1/topics/cache/
+REDIS_URI = os.environ.get("REDIS_URI", "172.17.0.1:6379/1")
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": f"redis://{REDIS_URI}",
+        "OPTIONS": {"CLIENT_CLASS": "django_redis.client.DefaultClient",},
+        # Default time for cache key expiry, in seconds. Can be changed on a per-key basis
+        "TIMEOUT": 600,
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -218,3 +231,16 @@ EVENT_END_DATE = datetime(2020, 11, 8, 17, 0, 0, tzinfo=pytz.timezone(TIME_ZONE)
 
 # Registration settings
 ACCOUNT_ACTIVATION_DAYS = 7
+RSVP_DAYS = 7
+
+# The time at which waitlisted people will start being accepted into
+# the event. This usually happens an hour or two after the start of
+# the event.
+WAITLISTED_ACCEPTANCE_START_TIME = EVENT_START_DATE + timedelta(hours=1)
+
+# The date at which applications will be reviewed at the latest.
+FINAL_REVIEW_RESPONSE_DATE = REGISTRATION_CLOSE_DATE + timedelta(days=7)
+
+# Links
+PARTICIPANT_PACKAGE_LINK = "#"
+CHAT_ROOM_LINK = "#"
