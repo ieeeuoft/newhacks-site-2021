@@ -222,14 +222,38 @@ else:
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
-    "handlers": {"console": {"level": "INFO", "class": "logging.StreamHandler"}},
+    "filters": {
+        "require_debug_false": {"()": "django.utils.log.RequireDebugFalse",},
+        "require_debug_true": {"()": "django.utils.log.RequireDebugTrue",},
+    },
+    "handlers": {
+        "console": {
+            "level": "INFO",
+            "class": "logging.StreamHandler",
+            "filters": ["require_debug_true"],
+        },
+        "console_errors": {
+            "level": "ERROR",
+            "class": "logging.StreamHandler",
+            "filters": ["require_debug_false"],
+        },
+        "mail_admins": {
+            "level": "ERROR",
+            "filters": ["require_debug_false"],
+            "class": "django.utils.log.AdminEmailHandler",
+        },
+    },
     "loggers": {
-        "django": {"handlers": ["console"], "level": "WARNING", "propagate": True},
+        "django": {
+            "handlers": ["console", "console_errors", "mail_admins"],
+            "level": "INFO",
+            "propagate": True,
+        },
         "django.request": {
-            "handlers": ["console"],
-            "level": "WARNING",
+            "handlers": ["console", "console_errors"],
             "propagate": False,
         },
+        "review": {"handlers": ["console", "console_errors"], "propagate": False},
     },
 }
 
@@ -258,4 +282,7 @@ FINAL_REVIEW_RESPONSE_DATE = REGISTRATION_CLOSE_DATE + timedelta(days=7)
 
 # Links
 PARTICIPANT_PACKAGE_LINK = "#"
-CHAT_ROOM_LINK = "#"
+
+# Note this is in the form (chat_room_name, chat_room_link)
+# Chat room name is such as the following: Slack, Discord
+CHAT_ROOM = ("Slack", "https://slack.com")

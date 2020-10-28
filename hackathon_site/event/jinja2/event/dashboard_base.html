@@ -45,7 +45,7 @@
 
                         {% if application.rsvp %}
                             <p>Make sure you read the <a class="primaryText hoverLink" href="{{ participant_package_link }}" rel="noopener" target="_blank">participant package</a> for all the info regarding
-                                the event, and join our <a class="primaryText hoverLink" href="{{ chat_room_link }}" rel="noopener" target="_blank">Slack</a>. Stay tuned for more updates regarding detailed event logistics, and we hope to see you soon!</p> <br />
+                                the event, and join our <a class="primaryText hoverLink" href="{{ chat_room_link }}" rel="noopener" target="_blank">{{ chat_room_name }}</a>. Stay tuned for more updates regarding detailed event logistics, and we hope to see you soon!</p> <br />
                         {% endif %}
                         <p>If you have questions, read the <a class="primaryText hoverLink" href="#faq">FAQ</a>, or feel free to contact us.</p> <br />
 
@@ -170,23 +170,23 @@
             <div class="borderTopDiv z-depth-3">
                 <h2 class="formH2" id="faq">Application FAQs</h2>
 
-                    <p class="faqQuestion">When can I expect to hear back?</p>
-                    <p class="faqAnswer">Final decisions will be sent out in 1 round, tentatively scheduled for October 26/27.</p>
+                <p class="faqQuestion">When can I expect to hear back?</p>
+                <p class="faqAnswer">Final decisions will be sent out in 1 round, tentatively scheduled for October 26/27.</p>
 
-                    <p class="faqQuestion">Can I compete with a different team than the one I applied with?</p>
-                    <p class="faqAnswer">Your team number is just for your application so we can review your team together. It is not deciding and not needed during the event. You have until the event to choose a team and must submit to Devpost with the final team.</p>
+                <p class="faqQuestion">Can I compete with a different team than the one I applied with?</p>
+                <p class="faqAnswer">Your team number is just for your application so we can review your team together. It is not deciding and not needed during the event. You have until the event to choose a team and must submit to Devpost with the final team.</p>
 
-                    <p class="faqQuestion">I don’t have a team. What can I do?</p>
-                    <p class="faqAnswer">All teams competing must have 3 or 4 members, but you do not need a full team to apply. We have a team formation channel on Discord as well as a team formation event scheduled before hacking starts, so you can connect with other participants that don’t have a team yet.</p>
+                <p class="faqQuestion">I don’t have a team. What can I do?</p>
+                <p class="faqAnswer">All teams competing must have 3 or 4 members, but you do not need a full team to apply. We have a team formation channel on {{ chat_room_name }} as well as a team formation event scheduled before hacking starts, so you can connect with other participants that don’t have a team yet.</p>
 
                 <p class="faqQuestion">Are decisions unanimous for a team?</p>
                 <p class="faqAnswer">Due to the large number of applicants and limited number of spots for {{ hackathon_name }}, decisions may not be unanimous. Each member should expect an email regarding their individual decisions.</p>
 
-                    <p class="faqQuestion">Who can I contact if I’ll be late?</p>
-                    <p class="faqAnswer">Please send an email to <a href="mailto:{{ contact_email }}" class="hoverLink">{{ contact_email }}</a> with your name, email you used to apply, expected arrival time, and reason as to why you’re arriving late and we’ll save your spot for you.</p>
+                <p class="faqQuestion">Who can I contact if I’ll be late?</p>
+                <p class="faqAnswer">Please send an email to <a href="mailto:{{ contact_email }}" class="hoverLink">{{ contact_email }}</a> with your name, email you used to apply, expected arrival time, and reason as to why you’re arriving late and we’ll save your spot for you.</p>
 
-                    <p class="faqQuestion">How does the waitlist work the day of?</p>
-                    <p class="faqAnswer">TBD. We'll get back to you on this ASAP!</p>
+                <p class="faqQuestion">How does the waitlist work the day of?</p>
+                <p class="faqAnswer">TBD. We'll get back to you on this ASAP!</p>
 
                 <p class="faqQuestion">Other questions?</p>
                 <p class="faqAnswer">If you have any questions or concerns, feel free to contact us at <a href="mailto:{{ contact_email }}" class="primaryText hoverLink">{{ contact_email }}</a>.</p>
