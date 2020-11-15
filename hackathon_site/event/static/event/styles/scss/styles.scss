@@ -277,6 +277,10 @@ strong {
 // "Sponsors" section
 .sponsorImgs {
     margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    flex-flow: wrap;
+    align-items: center;
 
     img {
         height: 100%;
