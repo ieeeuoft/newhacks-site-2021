@@ -40,16 +40,132 @@ h3 {
     text-transform: uppercase;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5 {
+    font-family: font(header);
+}
+
 body {
     font-family: font(body), sans-serif;
     font-size: 18px;
+    font-size: size(lg);
     color: color(font);
+    font-family: font(body);
 }
 
 strong {
     font-weight: 700;
 }
 // End of general HTML stuff
+
+// Colors
+.backgroundColor {
+    // Change the background colors of each page here!
+    &Landing {
+        background-color: color(backgroundColor);
+    }
+    &FormBase {
+        background-color: color(backgroundColor);
+    }
+    &Dashboard {
+        background-color: color(backgroundColor);
+    }
+
+    &Landing,
+    &FormBase,
+    &Dashboard {
+        min-height: 100vh;
+    }
+}
+
+.primaryColor {
+    background-color: color(primary) !important;
+}
+
+.secondaryColor {
+    background-color: color(secondary) !important;
+}
+
+.primaryText {
+    color: color(primary) !important;
+}
+
+.secondaryText {
+    color: color(secondary) !important;
+}
+
+.errorText {
+    color: color(error);
+}
+
+.successText {
+    color: color(success);
+}
+
+.colorBtn {
+    font-weight: bold !important;
+    text-align: center;
+    text-transform: uppercase;
+    color: color(font) !important;
+    background-color: color(secondary) !important;
+
+    &:hover {
+        background-color: color(secondaryOnHover) !important;
+    }
+}
+
+.redBtn {
+    font-weight: bold !important;
+    text-align: center;
+    text-transform: uppercase;
+    color: color(white) !important;
+    background-color: color(error) !important;
+
+    &:hover {
+        background-color: color(errorOnHover) !important;
+    }
+}
+.active {
+    color: color(secondary);
+}
+// End of colors
+
+// Formatting stuff
+.flexColCenter {
+    @include flexPosition($alIte: center, $dir: column);
+}
+
+.longText {
+    padding-right: 200px;
+
+    @include responsive(sm-down) {
+        padding-right: 0;
+    }
+}
+
+.hoverLink {
+    font-weight: 600;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+.rowMarginPadding {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 0 !important;
+}
+
+.formPadding {
+    @include responsive(sm-down) {
+        padding: 0 !important;
+    }
+}
+// End of formatting stuff
 
 // Navbar stuff
 .logoNav100 {
@@ -124,6 +240,11 @@ strong {
         box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12),
             0 1px 5px 0 rgba(0, 0, 0, 0.2);
     }
+    z-index: 1100;
+}
+
+.sidenav-trigger {
+    margin-left: 0 !important;
 }
 // End of navbar stuff
 
@@ -154,7 +275,7 @@ strong {
 }
 
 .landingImg {
-    @include flexPosition($jusCon: center);
+    @include flexPosition($jusCon: center, $alIte: center);
 
     img {
         width: 100%;
@@ -188,9 +309,7 @@ strong {
 }
 
 .countdown {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @include flexPosition($jusCon: center, $alIte: center);
 
     &Days {
         margin-top: 20px;
@@ -208,8 +327,11 @@ strong {
         font-family: font(header), sans-serif;
         display: flex;
         flex-direction: column;
+        background-color: color(secondary);
+        @include flexPosition($dir: column);
         margin: 0 5px;
         padding: 0 !important;
+        font-family: font(header);
     }
 
     &WhiteLine {
@@ -232,7 +354,7 @@ strong {
     margin: 10px 0 30px;
 
     p {
-        font-size: 20px;
+        font-size: size(xl);
         margin: 0;
     }
 
@@ -247,7 +369,7 @@ strong {
 
     @include responsive(md-down) {
         p {
-            font-size: 18px;
+            font-size: size(lg);
         }
         &Time {
             width: 70px;
@@ -291,6 +413,43 @@ strong {
 }
 // End of "Sponsors" section
 
+// "Hackathon stats" section
+.stat {
+    @include flexPosition($alIte: center, $dir: column);
+
+    &-number {
+        margin: 10px 0;
+        font-weight: 700;
+    }
+
+    @include responsive(sm-down) {
+        margin-bottom: 25px;
+    }
+}
+// End of "Hackathon stats" section
+
+// "FAQ" section
+.collapsible .active {
+    // color: inherit;
+    color: color(primary);
+}
+
+.active .collapsible-header {
+    font-weight: bold;
+}
+
+.collapsible,
+.collapsible-body,
+.collapsible-header {
+    border: none;
+    box-shadow: none;
+    margin: 0;
+}
+.collapsible-header {
+    background-color: transparent;
+}
+
+// End of "FAQ" section
 // Video section
 .video {
     max-width: 1000px;
@@ -344,6 +503,9 @@ strong {
         img {
             height: 100%;
             width: 100%;
+            // Manipulate the filter to change the color of the icon.
+            // e.g. invert(0) is black and invert(1) is white
+            filter: invert(1);
         }
 
         &:hover {
@@ -408,12 +570,11 @@ strong {
     color: color(secondary);
 }
 // End of colors
-
 // Login stuff
 .login {
     &Div {
         display: flex;
-        background-color: #fff;
+        background-color: color(white);
         border-top: solid 10px color(secondary);
         border-radius: 3px 3px 0 0;
         padding: 50px 30px 30px;
@@ -435,10 +596,9 @@ strong {
     }
 
     &Link {
-        display: flex;
-        justify-content: center;
+        @include flexPosition($jusCon: center, $alIte: center);
         margin: 10px 0 15px;
-        font-size: size(md);
+        font-size: size(sm);
         padding: 0 !important;
 
         i {
@@ -453,20 +613,17 @@ strong {
         text-align: center;
         text-transform: uppercase;
         margin: 0 auto 30px;
-        color: color(dark);
         font-size: 50px;
     }
 
     &H2 {
         font-weight: normal;
-        color: color(dark);
         font-size: 30px;
         margin: 0 0 15px;
     }
 
     &H3 {
         font-weight: normal;
-        color: color(dark);
         font-size: 24px;
         text-transform: initial;
         margin: 0 0 10px;
@@ -481,7 +638,7 @@ strong {
             font-size: 24px;
         }
         &H3 {
-            font-size: 20px;
+            font-size: size(xl);
         }
     }
 
@@ -490,13 +647,13 @@ strong {
     }
 
     &FieldError {
-        font-size: 12px;
-        color: #f44336;
+        font-size: size(xs);
+        color: color(error);
         display: block;
     }
 
     &Error {
-        color: #f44336;
+        color: color(error);
         display: block;
     }
 }
@@ -532,9 +689,8 @@ strong {
 
 // Dashboard stuff
 .borderTopDiv {
-    display: flex;
-    flex-direction: column;
-    background-color: #fff;
+    background-color: color(white);
+    @include flexPosition($dir: column);
     border-top: solid 10px color(secondary);
     border-radius: 3px 3px 0 0;
     padding: 40px 30px 30px;

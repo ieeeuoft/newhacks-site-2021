@@ -2,9 +2,9 @@
 
 {% block head_extends %}
 <script>
-    const registrationOpenDate = new Date("{{ localtime(registration_open_date).strftime('%b %-d, %Y, %H:%M:%S') }}");
-    const registrationCloseDate = new Date("{{ localtime(registration_close_date).strftime('%b %-d, %Y, %H:%M:%S') }}");
-    const eventStartDate = new Date("{{ localtime(event_start_date).strftime('%b %-d, %Y, %H:%M:%S') }}");
+    const registrationOpenDate = new Date("{{ localtime(registration_open_date).strftime('%B %-d, %Y, %H:%M:%S') }}");
+    const registrationCloseDate = new Date("{{ localtime(registration_close_date).strftime('%B %-d, %Y, %H:%M:%S') }}");
+    const eventStartDate = new Date("{{ localtime(event_start_date).strftime('%B %-d, %Y, %H:%M:%S') }}");
 </script>
 {% endblock %}
 
@@ -243,10 +243,10 @@
                 <a href="https://www.daisyintelligence.com/" class="col m6 s12" rel="noopener" target="_blank"><img src="{{ static('event/images/sponsors/Daisy_Intelligence_white.svg') }}" alt="Daisy Intelligence"/></a>
                 <a href="https://tractionondemand.com/" class="col m6 s12" rel="noopener" target="_blank"><img src="{{ static('event/images/sponsors/Traction_On_Demand_white.svg') }}" alt="Traction on Demand" /></a>
 
-                <!-- Gold  offset-m2 offset-s1--> 
+                <!-- Gold  offset-m2 offset-s1-->
                 <a href="https://www.mathworks.com/" class="col m4 s5" rel="noopener" target="_blank"><img src="{{ static('event/images/sponsors/Mathworks_white.svg') }}" alt="Mathworks" /></a>
                 <a href="https://www.rotman.utoronto.ca/" class="col m4 s5" rel="noopener" target="_blank"><img src="{{ static('event/images/sponsors/Rotman_white.svg') }}" alt="Rotman School of Management" /></a>
-                
+
                 <!-- Silver -->
                 <a href="https://www.analog.com/" class="col m4 s5 offset-s4" rel="noopener" target="_blank"><img src="{{ static('event/images/sponsors/Analog_Devices_white.svg') }}" alt="Analog Devices" /></a>
                 <!-- Bronze -->
