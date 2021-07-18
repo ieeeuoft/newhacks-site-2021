@@ -55,7 +55,7 @@
                     <div class="row col s12 formPadding" style="width: auto; margin-bottom: 0;">
                         {% block form_description %}{% endblock %}
                     </div>
-                    
+
                     <form class="col s12 flexColCenter formPadding"
                         {% if form_action %} action="{{ form_action }}" {% endif %}
                         method="{{ form_method if form_method else "post" }}"
@@ -65,7 +65,7 @@
                         <div class="row" style="width: 100%;">
                             {% block form_inputs %}{% endblock %}
                         </div>
-                        
+
                         {% block form_button %}{% endblock %}
                     </form>
                     <br />

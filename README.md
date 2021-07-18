@@ -16,6 +16,7 @@ A website template for hackathons run by [IEEE University of Toronto Student Bra
     * [From the Template (Recommended)](#from-the-template)
     * [Copy the Repository](#copy-the-repository)
 - [Customization](#customization)
+    * [Branding and Styling](#branding-and-styling)
 
 ## Requirements
 - Python 3.8 or higher
@@ -134,7 +135,7 @@ To start, create an admin user. This will give you access to the admin site, and
 $ python manage.py createsuperuser 
 ```
 
-Once a superuser is created (and the Django dev server is running), you can log in to the admin site at `http://localhost:8000/admin`.
+Once a superuser is created (and the Django dev server is running), you can log in to the admin site at `http://localhost:8000/admin`. Note that creating a superuser does not give it a first or last name, so you should set those from the admin site otherwise some parts of the site may behave weird. Our regular sign up flow also assumes that username and email are the same, so we recommend creating your superuser accordingly.
 
 #### Adding additional users
 The easiest way to add new users is via the admin site, through the "Users" link of the "Authentication and Authorization" panel. When adding a user, you will be prompted for only a username and a password. The react site uses email to log in, so *make sure* to click "Save and continue editing" and add a first name, last name, and email address.
@@ -186,7 +187,7 @@ Static files are placed within each app, in a folder named `static/<app_name>/` 
 To compile the SCSS automatically when you save, run following task running while you work:
 
 ```bash
-$ cd hackathon_site/event
+$ cd hackathon_site
 $ yarn run scss-watch
 ```
 To compile all SCSS files at once, run:
@@ -205,6 +206,8 @@ This will place static files in `hackathon_site/static/`. These must be served s
 
 ## Using this Template
 This repository is setup as a template. To read more about how to use a template and what a template repository is, see [GitHub's doc page](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template).
+
+Before you begin, note that the [main workflow file](https://github.com/ieeeuoft/hackathon-template/blob/develop/.github/workflows/main.yml) uses the `pull_request_target` trigger. This means that pull requests from forks will run workflows in the base branch, **and will have access to repository secrets**. For the base template repo, this is not a security concern since the only secret used in tests is `DJANGO_SECRET_KEY`, and is meaningless in this repository. However, an instance of this repository will likely have other secrets set. **Unless you are absolutely sure that code run by workflows for pull requests, such as tests, does not have access to important secrets, you should change this trigger type back to `pull_request`**. This means that pull requests from forks (of your fork) will not run actions. Alternatively, if tests only need access to secret keys so they don't complain, use a different secret in the workflow files for running tests.
 
 ### Forking
 If you are interested in receiving updates to this template in your project, we recommend that you fork this repository into your own account or organization. This will give you the entire commit history of the project, and will allow you to make pull requests from this repository into your own to perform updates.
@@ -303,6 +306,40 @@ You will also need to set the necessary settings for your email server, so that 
 Near the top of the settings file, you must also set `ALLOWED_HOSTS` and `CORS_ORIGIN_REGEX_WHITELIST` for your domain.
 
 For convenience, some constants have been passed into the context of all Jinja templates by default, so they can be used right away. See the [Jinja2 config file](hackathon_site/hackathon_site/jinja2.py) for full details.
+
+
+### Branding and Styling
+Both the Event App and Dashboard App are styled by seperate SCSS files found in their respective directories.
+#### Event App
+**Warning: Deleting items in `styles.css`, `_mixins.scss`, and `_variables.scss` will mess up styling throughout all template pages.** Please read the following carefully and make sure you know what you're doing when you're modifying the aforementioned files.
+
+[Materialize](https://materializecss.com/) is the CSS framework that the Event App uses. Review their documentation to get a further understanding of how the template is styled.
+
+In order to determine the original source of a class, class names in kebab notation are from Materialize and class names in camel case are found in `styles.scss`. We recommend you follow this convention when adding your own classes.
+
+[SCSS mixins](https://sass-lang.com/documentation/at-rules/mixin) are stored in `_mixin.scss`. Currently, there are 2 mixin functions: `@mixin flexPosition` to be used if you want to style a class with CSS Flexbox and `@mixin responsive` to be used in place of Media Queries. If you are not familiar with mixins, example usages of both mixins are in `styles.scss`.
+
+Color, font family, and font size variables are stored in `_variables.scss`. Edit the values in the map to customize for your hackathons branding. For further organization, the variables are stored into maps and called using [SCSS functions](https://sass-lang.com/documentation/at-rules/function). 
+
+For example:
+```
+$fonts: (
+    body: "Nunito",
+    header: "Roboto",
+); 
+
+@function font($fonts-name) {
+    @return map-get($fonts, $fonts-name); //(name of map, key)
+}
+```
+Instead of calling...
+```
+h1 { font-family: $header; }
+```
+...you should get the `$header` variable through the `font` function:
+```
+h1 { font-family: font(header); }
+```
 
 ## Deploying
 This template may be deployed however you wish, we recommend you read [Django's documentation on deploying](https://docs.djangoproject.com/en/3.1/howto/deployment/). 

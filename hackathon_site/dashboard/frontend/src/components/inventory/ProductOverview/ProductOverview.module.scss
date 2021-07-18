@@ -9,8 +9,7 @@
 .productOverview {
     height: 100%;
     width: 100%;
-    @include flexPosition($alIte: flex-start);
-    flex-direction: column;
+    @include flexPosition($jusCon: space-between, $alIte: flex-start, $dir: column);
 
     &Div {
         width: 100%;
@@ -18,14 +17,11 @@
 }
 
 .mainSection {
-    display: flex;
-    justify-content: space-between;
+    @include flexPosition($jusCon: space-between);
     width: 100%;
 
-    &Name {
-        @include flexPosition($alIte: flex-start);
-        flex-direction: column;
-        width: 100%;
+    h6 {
+        font-weight: 400;
     }
 
     .quantityAvailable {
@@ -33,7 +29,6 @@
     }
 
     .categoryItem {
-        color: color(primary);
         background-color: color(blueLight);
         margin: 2.5px 5px 2.5px 0;
     }
