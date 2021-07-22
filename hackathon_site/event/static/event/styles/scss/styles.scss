@@ -153,6 +153,7 @@ strong {
     }
 }
 
+// Landing section
 .landingImg {
     @include flexPosition($jusCon: center);
 
@@ -208,6 +209,8 @@ strong {
         font-family: font(header), sans-serif;
         display: flex;
         flex-direction: column;
+        background-color: color(secondary);
+        @include flexPosition($dir: column);
         margin: 0 5px;
         padding: 0 !important;
     }
@@ -216,7 +219,7 @@ strong {
         position: relative;
         top: 50%;
         width: 100%;
-        border: 2px solid #ffffff;
+        border: 2px solid color(white);
     }
 }
 
@@ -256,31 +259,9 @@ strong {
 }
 // End of "Schedule" section
 
-// "FAQ" section
-.collapsible,
-.collapsible-body,
-.collapsible-header {
-    border: none;
-    box-shadow: none;
-    margin: 0;
-}
-.collapsible-header {
-    background-color: transparent;
-    color: #fff;
-}
-
-.collapsible-body {
-    color: color(light);
-}
-// End of "FAQ" section
-
 // "Sponsors" section
 .sponsorImgs {
     margin-top: 50px;
-    display: flex;
-    flex-direction: column;
-    flex-flow: wrap;
-    align-items: center;
 
     img {
         height: 100%;
@@ -290,6 +271,52 @@ strong {
     }
 }
 // End of "Sponsors" section
+
+// "Hackathon stats" section
+.stat {
+    @include flexPosition($alIte: center, $dir: column);
+
+    &-number {
+        margin: 10px 0;
+        font-weight: 700;
+    }
+
+    @include responsive(sm-down) {
+        margin-bottom: 25px;
+    }
+}
+// End of "Hackathon stats" section
+
+// "FAQ" section
+
+.collapsible .active {
+    // color: inherit;
+    color: color(white);
+}
+
+.active .collapsible-header {
+    font-weight: bold;
+}
+
+.collapsible,
+.collapsible-body,
+.collapsible-header {
+    border: none;
+    box-shadow: none;
+    margin: 0;
+}
+
+.collapsible-header {
+    background-color: transparent;
+    color: color(white);
+}
+
+.collapsible-body {
+    color: color(light);
+}
+
+
+// End of "FAQ" section
 
 // Video section
 .video {
@@ -344,10 +371,13 @@ strong {
         img {
             height: 100%;
             width: 100%;
+            // Manipulate the filter to change the color of the icon.
+            // e.g. invert(0) is black and invert(1) is white
+            filter: invert(1);
         }
 
         &:hover {
-            background-color: #d2a300;
+            background-color: rgba(0, 0, 0, 0.2);
         }
     }
 }

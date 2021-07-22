@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db import transaction
 from django.shortcuts import redirect
@@ -9,7 +10,12 @@ from django.conf import settings
 
 from hackathon_site.utils import is_registration_open
 from registration.forms import JoinTeamForm
-from registration.models import Team
+from registration.models import Team as RegistrationTeam
+
+from rest_framework import generics, mixins
+
+from event.models import Team as EventTeam
+from event.serializers import TeamSerializer
 
 
 def _now():
@@ -30,6 +36,29 @@ class IndexView(TemplateView):
         context["user"] = self.request.user
         context["application"] = getattr(self.request.user, "application", None)
         return context
+
+
+class CurrentTeamAPIView(generics.GenericAPIView, mixins.RetrieveModelMixin):
+    """
+    View to handle API interaction with the current logged in user's EventTeam
+    """
+
+    queryset = EventTeam.objects.all()
+    serializer_class = TeamSerializer
+
+    def get_object(self):
+        queryset = self.get_queryset()
+
+        return generics.get_object_or_404(
+            queryset, profiles__user_id=self.request.user.id
+        )
+
+    def get(self, request, *args, **kwargs):
+        """
+        Get the current users team profile and team details
+        Reads the profile of the current logged in team.
+        """
+        return self.retrieve(request, *args, **kwargs)
 
 
 class DashboardView(LoginRequiredMixin, FormView):
@@ -69,7 +98,9 @@ class DashboardView(LoginRequiredMixin, FormView):
 
         if isinstance(form, JoinTeamForm):
             application = self.request.user.application
-            new_team = Team.objects.get(team_code=form.cleaned_data["team_code"])
+            new_team = RegistrationTeam.objects.get(
+                team_code=form.cleaned_data["team_code"]
+            )
             old_team = application.team
 
             application.team = new_team
@@ -106,9 +137,13 @@ class DashboardView(LoginRequiredMixin, FormView):
             ] = _now().date() > review.decision_sent_date + timedelta(
                 days=settings.RSVP_DAYS
             )
-            context["rsvp_deadline"] = (
-                review.decision_sent_date + timedelta(days=settings.RSVP_DAYS)
-            ).strftime("%b %d %Y")
+            rsvp_deadline = datetime.combine(
+                review.decision_sent_date + timedelta(days=settings.RSVP_DAYS),
+                datetime.max.time(),  # 11:59PM
+            )
+            context["rsvp_deadline"] = settings.TZ_INFO.localize(
+                rsvp_deadline
+            ).strftime("%B %-d, %Y, %-I:%M %p %Z")
         else:
             context["review"] = None
 
@@ -143,9 +178,9 @@ class DashboardView(LoginRequiredMixin, FormView):
         ):
             context["status"] = "Rejected"
         elif self.request.user.application.rsvp:
-            context["status"] = "Offer Accepted"
+            context["status"] = "Will Attend (Accepted)"
         elif not self.request.user.application.rsvp:
-            context["status"] = "Offer Declined"
+            context["status"] = "Cannot Attend (Declined)"
         else:
             context["status"] = "Unknown"
 

@@ -258,7 +258,8 @@ LOGGING = {
 }
 
 # Event specific settings
-HACKATHON_NAME = "NewHacks"
+HACKATHON_NAME = "CoolHacks"
+DEFAULT_FROM_EMAIL = "webmaster@localhost"
 CONTACT_EMAIL = DEFAULT_FROM_EMAIL
 
 REGISTRATION_OPEN_DATE = datetime(2020, 9, 18, tzinfo=pytz.timezone(TIME_ZONE))
@@ -281,8 +282,8 @@ WAITLISTED_ACCEPTANCE_START_TIME = EVENT_START_DATE + timedelta(hours=1)
 FINAL_REVIEW_RESPONSE_DATE = REGISTRATION_CLOSE_DATE + timedelta(days=7)
 
 # Links
-PARTICIPANT_PACKAGE_LINK = "https://docs.google.com/document/d/1znt4f2wvc0CKR_nPt6HXJ19xcaS3qhjpPBZH35DKI1A/edit"
+PARTICIPANT_PACKAGE_LINK = "#"
 
 # Note this is in the form (chat_room_name, chat_room_link)
 # Chat room name is such as the following: Slack, Discord
-CHAT_ROOM = ("Discord", "https://discord.gg/htqdEzq")
+CHAT_ROOM = ("Slack", "https://slack.com")
