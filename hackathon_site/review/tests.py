@@ -151,7 +151,7 @@ class MailerTestCase(SetupUserMixin, TestCase):
         self._create_teams_and_reviews_for_mail_tests()
 
         quantity_before = Review.objects.filter(
-            decision_sent_date__isnull=True, status="Accepted"
+            decision_sent_date__isnull=True, status="Accepted", application__rsvp=True
         ).count()
 
         self.form_data["quantity"] = 3  # Send 3 acceptance emails
@@ -159,7 +159,7 @@ class MailerTestCase(SetupUserMixin, TestCase):
         response = self.client.post(self.view, data=self.form_data)
 
         quantity_after = Review.objects.filter(
-            decision_sent_date__isnull=True, status="Accepted"
+            decision_sent_date__isnull=True, status="Accepted", application__rsvp=True
         ).count()
 
         self.assertEqual(len(mail.outbox), 3)
@@ -171,7 +171,7 @@ class MailerTestCase(SetupUserMixin, TestCase):
         self._create_teams_and_reviews_for_mail_tests(date_offset=5)
 
         quantity_before = Review.objects.filter(
-            decision_sent_date__isnull=True, status="Accepted"
+            decision_sent_date__isnull=True, status="Accepted", application__rsvp=True
         ).count()
 
         # Send 10 acceptance emails. There's only 8 accepted people, and 1 older. So should
@@ -182,7 +182,7 @@ class MailerTestCase(SetupUserMixin, TestCase):
         response = self.client.post(self.view, data=self.form_data)
 
         quantity_after = Review.objects.filter(
-            decision_sent_date__isnull=True, status="Accepted"
+            decision_sent_date__isnull=True, status="Accepted", application__rsvp=True
         ).count()
 
         self.assertEqual(len(mail.outbox), 7)

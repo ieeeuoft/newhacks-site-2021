@@ -82,6 +82,10 @@ class MailerView(UserPassesTestMixin, FormView):
                     connection=connection,
                 )
 
+                # RSVPing isn't used for this hackathon
+                review.application.rsvp = True
+                review.application.save()
+
                 review.decision_sent_date = current_date
                 review.save()
         except Exception as e:
