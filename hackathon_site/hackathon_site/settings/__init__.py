@@ -272,6 +272,8 @@ EVENT_END_DATE = datetime(2020, 11, 8, 17, 0, 0, tzinfo=pytz.timezone(TIME_ZONE)
 
 # Registration settings
 ACCOUNT_ACTIVATION_DAYS = 7
+
+# Unused for this hackathon
 RSVP_DAYS = 7
 
 # The time at which waitlisted people will start being accepted into

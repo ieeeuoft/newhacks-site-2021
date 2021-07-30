@@ -61,9 +61,6 @@ class MailerView(UserPassesTestMixin, FormView):
                 render_to_string_context = {
                     "user": review.application.user,
                     "request": self.request,
-                    "rsvp_deadline": (
-                        current_date + timedelta(days=settings.RSVP_DAYS)
-                    ).strftime("%B %-d %Y"),
                 }
 
                 review.application.user.email_user(
@@ -81,6 +78,10 @@ class MailerView(UserPassesTestMixin, FormView):
                     from_email=settings.DEFAULT_FROM_EMAIL,
                     connection=connection,
                 )
+
+                # RSVPing isn't used for this hackathon
+                review.application.rsvp = True
+                review.application.save()
 
                 review.decision_sent_date = current_date
                 review.save()
