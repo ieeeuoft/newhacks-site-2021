@@ -169,18 +169,23 @@ class ApplicationViewTestCase(SetupUserMixin, TestCase):
         self.view = reverse("registration:application")
 
         self.data = {
+            "tshirt_size": "large",
             "birthday": date(2020, 9, 8),
-            "gender": "male",
-            "ethnicity": "caucasian",
-            "phone_number": "2262208655",
+            "gender": "no-answer",
+            "ethnicity": "no-answer",
+            "phone_number": "1234567890",
             "school": "UofT",
             "study_level": "other",
             "graduation_year": 2020,
             "program": "Engineering",
-            "q1": "hi",
+            "q1": "one",
             "q2": "there",
             "q3": "foo",
+            "q4": "yellow",
+            "q5": "small",
             "conduct_agree": True,
+            "logistics_agree": True,
+            "email_agree": True,
             "data_agree": True,
             "resume": "uploads/resumes/my_resume.pdf",
         }
