@@ -88,6 +88,7 @@ class ApplicationForm(forms.ModelForm):
             "state",
             "country",
             "postal_code",
+            "tshirt_size",
             "birthday",
             "gender",
             "ethnicity",
@@ -100,7 +101,11 @@ class ApplicationForm(forms.ModelForm):
             "q1",
             "q2",
             "q3",
+            "q4",
+            "q5",
             "conduct_agree",
+            "logistics_agree",
+            "email_agree",
             "data_agree",
         ]
         widgets = {

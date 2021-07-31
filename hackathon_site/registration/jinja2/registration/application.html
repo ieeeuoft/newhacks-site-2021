@@ -39,6 +39,7 @@
     {{ render_field(form.phone_number, size="s12 m6") }}
     {{ render_field(form.gender, size="s12 m6 select2-wrapper") }}
     {{ render_field(form.ethnicity, size="s12 m6 select2-wrapper") }}
+    {{ render_field(form.tshirt_size, size="s12 m6 select2-wrapper") }}
 
     <div class="col s12">
         <h4>Address (Optional)</h4>
@@ -69,8 +70,12 @@
     {{ render_field(form.q1, show_help_text_as_label=True) }}
     {{ render_field(form.q2, show_help_text_as_label=True) }}
     {{ render_field(form.q3, show_help_text_as_label=True) }}
+    {{ render_field(form.q4, show_help_text_as_label=True) }}
+    {{ render_field(form.q5, show_help_text_as_label=True) }}
 
     {{ render_checkbox_field(form.conduct_agree) }}
+    {{ render_checkbox_field(form.logistics_agree) }}
+    {{ render_checkbox_field(form.email_agree) }}
     {{ render_checkbox_field(form.data_agree) }}
 {% endblock %}
 
