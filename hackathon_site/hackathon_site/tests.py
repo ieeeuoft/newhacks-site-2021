@@ -165,6 +165,11 @@ class SetupUserMixin:
 
         self.review = Review.objects.create(**default_kwargs)
 
+        # RSVP is unused for this hackathon
+        if kwargs.get("status", None) == "Accepted":
+            self.review.application.rsvp = True
+            self.review.application.save()
+
 
 @override_settings(IN_TESTING=False)
 class IsRegistrationOpenTestCase(TestCase):
