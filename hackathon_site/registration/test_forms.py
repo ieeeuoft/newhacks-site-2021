@@ -79,6 +79,7 @@ class ApplicationFormTestCase(SetupUserMixin, TestCase):
     def setUp(self):
         super().setUp()
         self.data = {
+            "tshirt_size": "large",
             "birthday": date(2020, 9, 8),
             "gender": "no-answer",
             "ethnicity": "no-answer",
@@ -87,10 +88,14 @@ class ApplicationFormTestCase(SetupUserMixin, TestCase):
             "study_level": "other",
             "graduation_year": 2020,
             "program": "Engineering",
-            "q1": "hi",
+            "q1": "one",
             "q2": "there",
             "q3": "foo",
+            "q4": "yellow",
+            "q5": "small",
             "conduct_agree": True,
+            "logistics_agree": True,
+            "email_agree": True,
             "data_agree": True,
         }
         self.files = self._build_files()
