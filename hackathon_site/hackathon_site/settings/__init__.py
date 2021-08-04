@@ -258,7 +258,7 @@ LOGGING = {
 }
 
 # Event specific settings
-HACKATHON_NAME = "CoolHacks"
+HACKATHON_NAME = "NewHacks"
 DEFAULT_FROM_EMAIL = "webmaster@localhost"
 CONTACT_EMAIL = DEFAULT_FROM_EMAIL
 
