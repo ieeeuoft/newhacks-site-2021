@@ -6,7 +6,7 @@ on:
       - 'main'
 
 env:
-  REGISTRY: ghrc.io
+  REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
   STACK_NAME: newhacks-site-2021
 
