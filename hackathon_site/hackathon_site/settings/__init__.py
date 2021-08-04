@@ -264,7 +264,9 @@ DEFAULT_FROM_EMAIL = "webmaster@localhost"
 CONTACT_EMAIL = DEFAULT_FROM_EMAIL
 
 REGISTRATION_OPEN_DATE = datetime(2021, 9, 17, tzinfo=pytz.timezone(TIME_ZONE))
-REGISTRATION_CLOSE_DATE = datetime(2021, 10, 29, 23, 59, 59, tzinfo=pytz.timezone(TIME_ZONE))
+REGISTRATION_CLOSE_DATE = datetime(
+    2021, 10, 29, 23, 59, 59, tzinfo=pytz.timezone(TIME_ZONE)
+)
 EVENT_START_DATE = datetime(2021, 11, 6, 10, 0, 0, tzinfo=pytz.timezone(TIME_ZONE))
 EVENT_END_DATE = datetime(2021, 11, 7, 17, 0, 0, tzinfo=pytz.timezone(TIME_ZONE))
 
