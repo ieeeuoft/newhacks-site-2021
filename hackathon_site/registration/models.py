@@ -175,7 +175,7 @@ class Application(models.Model):
         " and the "
         '<a href="https://mlh.io/privacy">MLH Privacy Policy.</a>',
         blank=False,
-        null=False,
+        null=False,git
         default=True,
     )
 
