@@ -2,13 +2,13 @@ version: "3.8"
 
 services:
   django:
-    image: ${IMAGE_ROOT}/django:${GITHUB_SHA_SHORT}
-    command: gunicorn hackathon_site.wsgi:application --bind 0.0.0.0:8001 --workers 5 --capture-output --access-logfile - --error-logfile -
+    image: ${REGISTRY}/${IMAGE_NAME}/django:${GITHUB_SHA_SHORT}
+    command: gunicorn hackathon_site.wsgi:application --bind 0.0.0.0:8000 --workers 5 --capture-output --access-logfile - --error-logfile -
     ports:
-      - 8001:8001
+      - "8000:8000"
     env_file: .env
     volumes:
-      - /var/www/${GITHUB_REPOSITORY}/media/:/var/www/media/
+      - /var/www/${IMAGE_NAME}/media/:/var/www/media/
     deploy:
       replicas: 1
       update_config:
@@ -17,11 +17,11 @@ services:
       restart_policy:
         condition: on-failure
     networks:
-      - newhacks-2020
+      - newhacks-2021
   redis:
     image: redis:6-alpine
     ports:
-      - 6379:6379
+      - "6379:6379"
     deploy:
       replicas: 1
       update_config:
@@ -30,8 +30,8 @@ services:
       restart_policy:
         condition: on-failure
     networks:
-      - newhacks-2020
+      - newhacks-2021
 
 networks:
-  newhacks-2020:
+  newhacks-2021:
     driver: overlay
