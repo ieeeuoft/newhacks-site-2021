@@ -57,18 +57,20 @@ class Application(models.Model):
     ]
 
     TSHIRT_SIZE_CHOICES = [
-        ("small", "S"),
-        ("medium", "M"),
-        ("large", "L"),
-        ("extra-large", "XL"),
+        (None, ""),
+        ("S", "S"),
+        ("M", "M"),
+        ("L", "L"),
+        ("XL", "XL"),
     ]
 
     HACKATHON_NUMBER_CHOICES = [
-        ("one", "1"),
-        ("two", "2"),
-        ("three", "3"),
-        ("four", "4"),
-        ("five_more", "5 or more"),
+        (None,""),
+        ("1", "1"),
+        ("2", "2"),
+        ("3", "3"),
+        ("4", "4"),
+        ("5 or more", "5 or more"),
     ]
 
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=False)
@@ -118,51 +120,39 @@ class Application(models.Model):
         ],
         null=False,
     )
-    address_line_1 = models.CharField(
-        max_length=255, help_text="Address Line 1", null=True, blank=True
-    )
-    address_line_2 = models.CharField(
-        max_length=255, help_text="Address Line 2", null=True, blank=True
-    )
-    city = models.CharField(max_length=255, null=True, blank=True)
-    state = models.CharField(
-        max_length=255, help_text="Province / State", null=True, blank=True
-    )
-    country = models.CharField(max_length=255, null=True, blank=True)
-    postal_code = models.CharField(
-        max_length=10, help_text="Postal Code", null=True, blank=True
-    )
 
-    q1 = models.TextField(
+    country = models.CharField(max_length=255, null=True, blank=True)
+
+    how_many_hackathons = models.TextField(
         null=False,
         help_text="How many hackathons have you been to?",
         choices=HACKATHON_NUMBER_CHOICES,
     )
 
-    q2 = models.TextField(
+    what_hackathon_experience = models.CharField(
         null=False,
-        help_text="If you’ve been to a hackathon, briefly tell us your experience. If not, describe what you expect to see and experience. (1000 char max)",
+        help_text="If you’ve been to a hackathon, briefly tell us your experience. If not, describe what you expect to see and experience.",
         max_length=1000,
     )
 
-    q3 = models.TextField(
+    why_participate = models.TextField(
         null=False,
         help_text="Why do you want to participate in NewHacks? (1000 char max)",
         max_length=1000,
     )
 
-    q4 = models.TextField(
+    what_technical_experience = models.TextField(
         null=False,
         help_text="What is your technical experience with software and hardware? (1000 char max)",
         max_length=1000,
     )
 
-    q5 = models.TextField(
+    referral_source = models.TextField(
         null=False, help_text="How did you hear about NewHacks?", max_length=1000
     )
     conduct_agree = models.BooleanField(
         help_text="I have read and agree to the "
-        '<a href="https://docs.google.com/document/d/1Uec_PDknY-9nSMc7QOqSTFb54I71uGX6oZaoTm1u8Q0/">MLH code of conduct</a>.',
+        '<a href="https://static.mlh.io/docs/mlh-code-of-conduct.pdf">MLH code of conduct</a>.',
         blank=False,
         null=False,
     )
@@ -175,21 +165,22 @@ class Application(models.Model):
         " and the "
         '<a href="https://mlh.io/privacy">MLH Privacy Policy.</a>',
         blank=False,
-        null=False,git
-        default=True,
+        null=False,
     )
 
     email_agree = models.BooleanField(
         help_text="I authorize MLH to send me pre- and post-event informational"
         " emails, which contain free credit and opportunities from their partners.",
-        blank=False,
-        default=True,
+        blank=True,
+        null=False,
+        default=False,
     )
 
     data_agree = models.BooleanField(
         help_text="I consent to IEEE UofT sharing my resume with event sponsors.",
-        blank=False,
+        blank=True,
         null=False,
+        default=False
     )
 
     rsvp = models.BooleanField(null=True)

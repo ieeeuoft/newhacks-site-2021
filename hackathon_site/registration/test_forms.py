@@ -79,7 +79,7 @@ class ApplicationFormTestCase(SetupUserMixin, TestCase):
     def setUp(self):
         super().setUp()
         self.data = {
-            "tshirt_size": "large",
+            "tshirt_size": "L",
             "birthday": date(2020, 9, 8),
             "gender": "no-answer",
             "ethnicity": "no-answer",
@@ -88,11 +88,11 @@ class ApplicationFormTestCase(SetupUserMixin, TestCase):
             "study_level": "other",
             "graduation_year": 2020,
             "program": "Engineering",
-            "q1": "one",
-            "q2": "there",
-            "q3": "foo",
-            "q4": "yellow",
-            "q5": "small",
+            "how_many_hackathons": "1",
+            "what_hackathon_experience": "there",
+            "why_participate": "foo",
+            "what_technical_experience": "yellow",
+            "referral_source": "my friend",
             "conduct_agree": True,
             "logistics_agree": True,
             "email_agree": True,
@@ -143,12 +143,7 @@ class ApplicationFormTestCase(SetupUserMixin, TestCase):
 
     def test_with_optional_fields(self):
         data = self.data.copy()
-        data["address_line_1"] = "1 Foo Bar St"
-        data["address_line_2"] = "#42"
-        data["city"] = "Foobarville"
         data["country"] = "Fooland"
-        data["postal_code"] = "1A1A1A"
-        data["state"] = "Barland"
 
         form = self._build_form(data=data)
         self.assertTrue(form.is_valid())
