@@ -258,7 +258,7 @@
             </div>
             <p class="center white-text">
                 If you'd like to sponsor us, feel free to reach out:
-                <a href="mailto:newhacks@ieee.utoronto.ca" class="hoverLink lightText">newhacks@ieee.utoronto.ca</a>
+                <a href="mailto:{{ contact_email }}" class="hoverLink lightText">{{ contact_email }}</a>
             </p>
         </div>
     </div>
@@ -290,7 +290,7 @@
     </div>
     <div class="footer-copyright center darkText">
         <div class="container darkText">
-            Copyright © {% if localtime(event_end_date).year > 2020 %}2020-{% endif %}
+            Copyright © {% if localtime(event_end_date).year > 2020 %}2020 -{% endif %}
             {{ localtime(event_end_date).strftime("%Y") }} IEEE University of Toronto Student Branch
         </div>
     </div>
