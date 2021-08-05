@@ -44,10 +44,9 @@ if DEBUG:
     DEFAULT_FROM_EMAIL = "webmaster@localhost"
 
 else:
-    # NOTE: If you aren't ieee uoft, put your websites here
-    ALLOWED_HOSTS = ["ieee.utoronto.ca"]
+    ALLOWED_HOSTS = ["newhacks.ca", "www.newhacks.ca"]
     CORS_ORIGIN_REGEX_WHITELIST = [
-        r"^https://ieee\.utoronto.ca:?\d*$",
+        r"^https://(?:www\.)?newhacks.ca:?\d*$",
     ]
 
     EMAIL_HOST = os.environ.get("EMAIL_HOST", None)
@@ -259,16 +258,15 @@ LOGGING = {
 }
 
 # Event specific settings
-HACKATHON_NAME = "CoolHacks"
-DEFAULT_FROM_EMAIL = "webmaster@localhost"
+HACKATHON_NAME = "NewHacks"
 CONTACT_EMAIL = DEFAULT_FROM_EMAIL
 
-REGISTRATION_OPEN_DATE = datetime(2020, 9, 18, tzinfo=pytz.timezone(TIME_ZONE))
+REGISTRATION_OPEN_DATE = datetime(2021, 9, 17, tzinfo=pytz.timezone(TIME_ZONE))
 REGISTRATION_CLOSE_DATE = datetime(
-    2020, 10, 23, 23, 59, 59, tzinfo=pytz.timezone(TIME_ZONE)
+    2021, 10, 29, 23, 59, 59, tzinfo=pytz.timezone(TIME_ZONE)
 )
-EVENT_START_DATE = datetime(2020, 11, 7, 10, 0, 0, tzinfo=pytz.timezone(TIME_ZONE))
-EVENT_END_DATE = datetime(2020, 11, 8, 17, 0, 0, tzinfo=pytz.timezone(TIME_ZONE))
+EVENT_START_DATE = datetime(2021, 11, 6, 10, 0, 0, tzinfo=pytz.timezone(TIME_ZONE))
+EVENT_END_DATE = datetime(2021, 11, 7, 17, 0, 0, tzinfo=pytz.timezone(TIME_ZONE))
 
 # Registration settings
 ACCOUNT_ACTIVATION_DAYS = 7

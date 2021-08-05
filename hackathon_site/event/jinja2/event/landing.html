@@ -15,7 +15,7 @@
     <li><a href="#about">About</a></li>
     <li><a href="#schedule">Schedule</a></li>
     <li><a href="#faq">FAQ</a></li>
-    <li><a href="#sponsors">Sponsors</a></li>
+    <!-- <li><a href="#sponsors">Sponsors</a></li> -->
     <li><a href="#contact">Contact</a></li>
     {% if request.user.is_authenticated %}
         <li><a href="{{ url("event:dashboard") }}">Dashboard</a></li>
@@ -31,7 +31,7 @@
             <h1 class="header white-text">NewHacks</h1>
             <div class="row">
                 <h4 class="header s12 white-text longText">
-                    24 Hour Beginner Friendly Digital Hackathon
+                    24 Hour Beginner Friendly Online Hackathon
                 </h4>
             </div>
             <div class="row">
@@ -181,11 +181,11 @@
                         </li>
                         <li>
                             <div class="collapsible-header">
-                                When can I expect to hear back after I applied?
+                                Can we buy hardware and use it in our project?
                             </div>
                             <div class="collapsible-body">
                                 <span>
-                                    There will be 1 round of acceptances tentatively scheduled for Oct 26th/27th. We review applications on a rolling basis so apply early!
+                                    Yes, you may buy hardware and use it towards your project. However, please remember that this is only a 24-hour hackathon and it may take time for your hardware to be delivered.
                                 </span>
                             </div>
                         </li>
@@ -207,23 +207,21 @@
                         </li>
                         <li>
                             <div class="collapsible-header">
-                                What equipment and support will be provided?
+                                What software/hardware can we use?
                             </div>
                             <div class="collapsible-body">
                                 <span>
-                                    Unfortunately, due to the current situation of COVID19, we won’t be able to provide any hardware. However, there will be lots of mentors ready to help you! During the online
-                                    hackathon, there will be a breakout room for all the mentors where you will be able to access at all times and get immediate help.
+                                    As this hackathon is online, you can use any of the software or hardware that you have available at your house.
                                 </span>
                             </div>
                         </li>
                         <li>
                             <div class="collapsible-header">
-                                How do online hackathons work?
+                                Is this hackathon online?
                             </div>
                             <div class="collapsible-body">
                                 <span>
-                                    The entire hackathon will be conducted online. You will be able to stay safe and comfortably at home while doing this hackathon. You will be able to communicate to your team via
-                                    online meetings and you will be submitting your final products online.
+                                    Yes, this hackathon will be hosted completely online using multiple online communication platforms so you can enjoy the hacking experience from the comfort of your home.
                                 </span>
                             </div>
                         </li>
@@ -234,44 +232,37 @@
     </div>
     <br /><br />
 </div>
-<div class="ombreBackgroundDark2">
-    <div class="container section scrollspy" id="sponsors">
-        <div class="row">
-            <h3 class="center white-text">Sponsors</h3>
-            <div class="row sponsorImgs">
+<!--<div class="ombreBackgroundDark2">-->
+<!--    <div class="container section scrollspy" id="sponsors">-->
+<!--        <div class="row">-->
+<!--            <h3 class="center white-text">Sponsors</h3>-->
+<!--            <div class="row sponsorImgs">-->
                 <!-- Platinum -->
-                <a href="https://www.daisyintelligence.com/" class="col m6 s12" rel="noopener" target="_blank"><img src="{{ static('event/images/sponsors/Daisy_Intelligence_white.svg') }}" alt="Daisy Intelligence"/></a>
-                <a href="https://tractionondemand.com/" class="col m6 s12" rel="noopener" target="_blank"><img src="{{ static('event/images/sponsors/Traction_On_Demand_white.svg') }}" alt="Traction on Demand" /></a>
+<!--                <a href="https://www.daisyintelligence.com/" class="col m6 s12" rel="noopener" target="_blank"><img src="{{ static('event/images/sponsors/Daisy_Intelligence_white.svg') }}" alt="Daisy Intelligence"/></a>-->
+<!--                <a href="https://tractionondemand.com/" class="col m6 s12" rel="noopener" target="_blank"><img src="{{ static('event/images/sponsors/Traction_On_Demand_white.svg') }}" alt="Traction on Demand" /></a>-->
 
                 <!-- Gold  offset-m2 offset-s1-->
-                <a href="https://www.mathworks.com/" class="col m4 s5" rel="noopener" target="_blank"><img src="{{ static('event/images/sponsors/Mathworks_white.svg') }}" alt="Mathworks" /></a>
-                <a href="https://www.rotman.utoronto.ca/" class="col m4 s5" rel="noopener" target="_blank"><img src="{{ static('event/images/sponsors/Rotman_white.svg') }}" alt="Rotman School of Management" /></a>
+<!--                <a href="https://www.mathworks.com/" class="col m4 s5" rel="noopener" target="_blank"><img src="{{ static('event/images/sponsors/Mathworks_white.svg') }}" alt="Mathworks" /></a>-->
+<!--                <a href="https://www.rotman.utoronto.ca/" class="col m4 s5" rel="noopener" target="_blank"><img src="{{ static('event/images/sponsors/Rotman_white.svg') }}" alt="Rotman School of Management" /></a>-->
 
                 <!-- Silver -->
-                <a href="https://www.analog.com/" class="col m4 s5 offset-s4" rel="noopener" target="_blank"><img src="{{ static('event/images/sponsors/Analog_Devices_white.svg') }}" alt="Analog Devices" /></a>
+<!--                <a href="https://www.analog.com/" class="col m4 s5 offset-s4" rel="noopener" target="_blank"><img src="{{ static('event/images/sponsors/Analog_Devices_white.svg') }}" alt="Analog Devices" /></a>-->
                 <!-- Bronze -->
 
                 <!-- Partners offset-m3 offset-s1-->
-                <a href="https://www.ecobee.com/en-ca/" class="col m2 s3 offset-s1" rel="noopener" target="_blank"><img src="{{ static('event/images/sponsors/ecobee_white.svg') }}" alt="ecobee" /></a>
-                <a href="https://www.amd.com/" class="col m2 s3" rel="noopener" target="_blank"><img src="{{ static('event/images/sponsors/AMD_white.svg') }}" alt="AMD" /></a>
-                <a href="https://hatchery.engineering.utoronto.ca" class="col m2 s3" rel="noopener" target="_blank"><img src="{{ static('event/images/sponsors/The_Hatchery_white.svg') }}" alt="The Hatchery" /></a>
-                <a href="https://www.voiceflow.com" class="col m2 s3" rel="noopener" target="_blank"><img src="{{ static('event/images/sponsors/Voiceflow_white.svg') }}" alt="Voiceflow" /></a>
-                <a href="https://www.huawei.com/ca/" class="col m2 s3" rel="noopener" target="_blank"><img src="{{ static('event/images/sponsors/Huawei_white.svg') }}" alt="Huawei" /></a>
-            </div>
-            <p class="center white-text">
-                If you'd like to sponsor us, feel free to reach out:
-                <a href="mailto:newhacks@ieee.utoronto.ca" class="hoverLink lightText">newhacks@ieee.utoronto.ca</a>
-            </p>
-        </div>
-    </div>
-    <div class="container section">
-        <div class="s12 m8 flexColCenter">
-            <h3 class="center white-text">Check out last year!</h3>
-            <iframe class="video center" src="https://www.youtube.com/embed/Vfi3pRkoyOI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </div>
-    </div>
-    <br /><br />
-</div>
+<!--                <a href="https://www.ecobee.com/en-ca/" class="col m2 s3 offset-s1" rel="noopener" target="_blank"><img src="{{ static('event/images/sponsors/ecobee_white.svg') }}" alt="ecobee" /></a>-->
+<!--                <a href="https://www.amd.com/" class="col m2 s3" rel="noopener" target="_blank"><img src="{{ static('event/images/sponsors/AMD_white.svg') }}" alt="AMD" /></a>-->
+<!--                <a href="https://hatchery.engineering.utoronto.ca" class="col m2 s3" rel="noopener" target="_blank"><img src="{{ static('event/images/sponsors/The_Hatchery_white.svg') }}" alt="The Hatchery" /></a>-->
+<!--                <a href="https://www.voiceflow.com" class="col m2 s3" rel="noopener" target="_blank"><img src="{{ static('event/images/sponsors/Voiceflow_white.svg') }}" alt="Voiceflow" /></a>-->
+<!--                <a href="https://www.huawei.com/ca/" class="col m2 s3" rel="noopener" target="_blank"><img src="{{ static('event/images/sponsors/Huawei_white.svg') }}" alt="Huawei" /></a>-->
+<!--            </div>-->
+<!--            <p class="center white-text">-->
+<!--                If you'd like to sponsor us, feel free to reach out:-->
+<!--                <a href="mailto:newhacks@ieee.utoronto.ca" class="hoverLink lightText">newhacks@ieee.utoronto.ca</a>-->
+<!--            </p>-->
+<!--        </div>-->
+<!--    </div>-->
+
 <div class="carousel">
     <a class="carousel-item" href="#one!"><img src="https://i.imgur.com/leuHG62.jpg" alt="2019-image-1" /></a>
     <a class="carousel-item" href="#two!"><img src="https://i.imgur.com/N3Q8dbL.jpg" alt="2019-image-2" /></a>
