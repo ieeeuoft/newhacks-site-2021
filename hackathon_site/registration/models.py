@@ -65,7 +65,7 @@ class Application(models.Model):
     ]
 
     HACKATHON_NUMBER_CHOICES = [
-        (None,""),
+        (None, ""),
         ("1", "1"),
         ("2", "2"),
         ("3", "3"),
@@ -180,7 +180,7 @@ class Application(models.Model):
         help_text="I consent to IEEE UofT sharing my resume with event sponsors.",
         blank=True,
         null=False,
-        default=False
+        default=False,
     )
 
     rsvp = models.BooleanField(null=True)

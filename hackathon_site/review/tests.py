@@ -72,7 +72,9 @@ class MailerTestCase(SetupUserMixin, TestCase):
                     MagicMock(return_value=older_updated_date),
                 ):
                     self._review(
-                        application, status="Waitlisted", decision_sent_date=sent_date,
+                        application,
+                        status="Waitlisted",
+                        decision_sent_date=sent_date,
                     )
             elif i == 3:
                 self._review(
