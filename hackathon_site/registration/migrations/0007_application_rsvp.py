@@ -11,8 +11,6 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AddField(
-            model_name="application",
-            name="rsvp",
-            field=models.BooleanField(null=True),
+            model_name="application", name="rsvp", field=models.BooleanField(null=True),
         ),
     ]

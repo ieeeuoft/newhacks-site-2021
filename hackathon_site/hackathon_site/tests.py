@@ -133,10 +133,7 @@ class SetupUserMixin:
         return team
 
     def _review(
-        self,
-        application=None,
-        reviewer=None,
-        **kwargs,
+        self, application=None, reviewer=None, **kwargs,
     ):
         if application is None:
             application = self.user.application
