@@ -39,38 +39,30 @@
     {{ render_field(form.phone_number, size="s12 m6") }}
     {{ render_field(form.gender, size="s12 m6 select2-wrapper") }}
     {{ render_field(form.ethnicity, size="s12 m6 select2-wrapper") }}
-
-    <div class="col s12">
-        <h4>Address (Optional)</h4>
-        <p>You can provide us your address and we can ship you NewHacks swag! Note that we are only able to ship to Canada, and this does not guarantee that we will be able to send you anything.</p>
-        <br />
-    </div>
-    {{ render_field(form.address_line_1, show_help_text_as_label=True) }}
-    {{ render_field(form.address_line_2, show_help_text_as_label=True) }}
-    {{ render_field(form.city, size="m6 s12") }}
-    {{ render_field(form.postal_code, size="m6 s12", show_help_text_as_label=True) }}
-    {{ render_field(form.state, size="m6 s12", show_help_text_as_label=True) }}
-    {{ render_field(form.country, size="m6 s12") }}
+    {{ render_field(form.tshirt_size, size="s12 m6 select2-wrapper") }}
+    {{ render_field(form.country, size="s12 m6 select2-wrapper added-country-margin formAddTopMargin") }}
 
     <div class="col s12">
         <h4>Education</h4>
-        <br />
     </div>
     {{ render_field(form.school, size="s12 m6 select2-wrapper") }}
     {{ render_field(form.study_level, size="s12 m6 select2-wrapper") }}
-    {{ render_field(form.graduation_year, size="s12 m6") }}
-    {{ render_field(form.program, size="s12 m6", show_help_text_as_label=True) }}
-    {{ render_field(form.resume, size="s12 marginTop0", show_label=False) }}
+    {{ render_field(form.graduation_year, size="s12 m6 select2-wrapper") }}
+    {{ render_field(form.program, size="s12 m6 select2-wrapper", show_help_text_as_label=True) }}
+    {{ render_field(form.resume, size="s12 marginTop0 select2-wrapper", show_label=False) }}
 
     <div class="col s12">
         <h4>Questions</h4>
-        <br />
     </div>
-    {{ render_field(form.q1, show_help_text_as_label=True) }}
-    {{ render_field(form.q2, show_help_text_as_label=True) }}
-    {{ render_field(form.q3, show_help_text_as_label=True) }}
+    {{ render_field(form.how_many_hackathons, show_help_text_as_label=True) }}
+    {{ render_field(form.what_hackathon_experience, show_help_text_as_label=True) }}
+    {{ render_field(form.why_participate, show_help_text_as_label=True) }}
+    {{ render_field(form.what_technical_experience, show_help_text_as_label=True) }}
+    {{ render_field(form.referral_source, show_help_text_as_label=True) }}
 
     {{ render_checkbox_field(form.conduct_agree) }}
+    {{ render_checkbox_field(form.logistics_agree) }}
+    {{ render_checkbox_field(form.email_agree) }}
     {{ render_checkbox_field(form.data_agree) }}
 {% endblock %}
 

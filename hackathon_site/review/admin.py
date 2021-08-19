@@ -72,15 +72,20 @@ class ApplicationInline(admin.TabularInline):
         "data_agree",
     )
     readonly_fields = (
+        "tshirt_size",
         "get_user_full_name",
         "study_level",
         "school",
         "graduation_year",
-        "q1",
-        "q2",
-        "q3",
+        "how_many_hackathons",
+        "what_hackathon_experience",
+        "why_participate",
+        "what_technical_experience",
+        "referral_source",
         "get_resume_link",
         "birthday",
+        "email_agree",
+        "data_agree",
         "get_reviewer_name",
         "get_decision_sent_date",
     )

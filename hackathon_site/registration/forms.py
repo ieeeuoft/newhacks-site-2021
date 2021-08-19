@@ -82,12 +82,8 @@ class ApplicationForm(forms.ModelForm):
     class Meta:
         model = Application
         fields = [
-            "address_line_1",
-            "address_line_2",
-            "city",
-            "state",
             "country",
-            "postal_code",
+            "tshirt_size",
             "birthday",
             "gender",
             "ethnicity",
@@ -97,10 +93,14 @@ class ApplicationForm(forms.ModelForm):
             "graduation_year",
             "program",
             "resume",
-            "q1",
-            "q2",
-            "q3",
+            "how_many_hackathons",
+            "what_hackathon_experience",
+            "why_participate",
+            "what_technical_experience",
+            "referral_source",
             "conduct_agree",
+            "logistics_agree",
+            "email_agree",
             "data_agree",
         ]
         widgets = {
@@ -110,18 +110,24 @@ class ApplicationForm(forms.ModelForm):
                 attrs={"class": "select2-school-select"},
                 choices=((None, ""),),
             ),
-            "resume": MaterialFileInput(attrs={"accept": ".pdf"}),
-            "q1": forms.Textarea(
-                attrs={"class": "materialize-textarea", "data-length": 1000,}
-            ),
-            "q2": forms.Textarea(
-                attrs={"class": "materialize-textarea", "data-length": 1000,}
-            ),
-            "q3": forms.Textarea(
+            "how_many_hackathons": forms.Textarea(
                 attrs={"class": "materialize-textarea", "data-length": 100,}
             ),
+            "what_hackathon_experience": forms.Textarea(
+                attrs={"class": "materialize-textarea", "data-length": 1000,}
+            ),
+            "why_participate": forms.Textarea(
+                attrs={"class": "materialize-textarea", "data-length": 1000,}
+            ),
+            "what_technical_experience": forms.Textarea(
+                attrs={"class": "materialize-textarea", "data-length": 1000,}
+            ),
+            "referral_source": forms.Textarea(
+                attrs={"class": "materialize-textarea", "data-length": 1000,}
+            ),
+            "resume": MaterialFileInput(attrs={"accept": ".pdf"}),
             "phone_number": forms.TextInput(attrs={"placeholder": "+1 (123) 456-7890"}),
-            "graduation_year": forms.NumberInput(attrs={"placeholder": 2020}),
+            "graduation_year": forms.NumberInput(attrs={"placeholder": 2022}),
         }
 
     def __init__(self, *args, **kwargs):
@@ -129,7 +135,7 @@ class ApplicationForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.label_suffix = ""
         self.fields["conduct_agree"].required = True
-        self.fields["data_agree"].required = True
+        self.fields["logistics_agree"].required = True
 
     def clean(self):
         if not is_registration_open():
