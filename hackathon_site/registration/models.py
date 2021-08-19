@@ -56,12 +56,32 @@ class Application(models.Model):
         ("other", "Other"),
     ]
 
+    TSHIRT_SIZE_CHOICES = [
+        (None, ""),
+        ("S", "S"),
+        ("M", "M"),
+        ("L", "L"),
+        ("XL", "XL"),
+    ]
+
+    HACKATHON_NUMBER_CHOICES = [
+        (None, ""),
+        ("1", "1"),
+        ("2", "2"),
+        ("3", "3"),
+        ("4", "4"),
+        ("5 or more", "5 or more"),
+    ]
+
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=False)
     team = models.ForeignKey(
         Team, related_name="applications", on_delete=models.CASCADE, null=False
     )
 
     # User Submitted Fields
+    tshirt_size = models.CharField(
+        max_length=50, choices=TSHIRT_SIZE_CHOICES, null=False
+    )
     birthday = models.DateField(null=False)
     gender = models.CharField(max_length=50, choices=GENDER_CHOICES, null=False)
     ethnicity = models.CharField(max_length=50, choices=ETHNICITY_CHOICES, null=False)
@@ -100,45 +120,64 @@ class Application(models.Model):
         ],
         null=False,
     )
-    address_line_1 = models.CharField(
-        max_length=255, help_text="Address Line 1", null=True, blank=True
-    )
-    address_line_2 = models.CharField(
-        max_length=255, help_text="Address Line 2", null=True, blank=True
-    )
-    city = models.CharField(max_length=255, null=True, blank=True)
-    state = models.CharField(
-        max_length=255, help_text="Province / State", null=True, blank=True
-    )
+
     country = models.CharField(max_length=255, null=True, blank=True)
-    postal_code = models.CharField(
-        max_length=10, help_text="Postal Code", null=True, blank=True
+
+    how_many_hackathons = models.TextField(
+        null=False,
+        help_text="How many hackathons have you been to?",
+        choices=HACKATHON_NUMBER_CHOICES,
     )
 
-    q1 = models.TextField(
+    what_hackathon_experience = models.CharField(
         null=False,
-        help_text="Why do you want to participate in NewHacks?",
+        help_text="If you’ve been to a hackathon, briefly tell us your experience. If not, describe what you expect to see and experience.",
         max_length=1000,
     )
-    q2 = models.TextField(
+
+    why_participate = models.TextField(
         null=False,
-        help_text="Tell us about your experience with software or other topics relevant to NewHacks!",
+        help_text="Why do you want to participate in NewHacks? (1000 char max)",
         max_length=1000,
     )
-    q3 = models.TextField(
-        null=False, help_text="How did you hear about NewHacks?", max_length=100
+
+    what_technical_experience = models.TextField(
+        null=False,
+        help_text="What is your technical experience with software and hardware? (1000 char max)",
+        max_length=1000,
+    )
+
+    referral_source = models.TextField(
+        null=False, help_text="How did you hear about NewHacks?", max_length=1000
     )
     conduct_agree = models.BooleanField(
         help_text="I have read and agree to the "
-        '<a href="https://docs.google.com/document/d/1Uec_PDknY-9nSMc7QOqSTFb54I71uGX6oZaoTm1u8Q0/">code of conduct</a>.',
+        '<a href="https://static.mlh.io/docs/mlh-code-of-conduct.pdf">MLH code of conduct</a>.',
         blank=False,
         null=False,
     )
-    data_agree = models.BooleanField(
-        help_text="I consent to have the data in this application collected for event purposes "
-        "including administration, ranking, and event communication, and to be shared with event "
-        "sponsors and partners.",
+    logistics_agree = models.BooleanField(
+        help_text="I authorize you to share my application/registration information with Major League Hacking"
+        "for event administration, ranking, and MLH administration in-line with the "
+        '<a href="https://mlh.io/privacy">MLH Privacy Policy</a>. '
+        "I further agree to the terms of both the "
+        '<a href="https://github.com/MLH/mlh-policies/tree/master/prize-terms-and-conditions">MLH Contest Terms and Conditions</a>'
+        " and the "
+        '<a href="https://mlh.io/privacy">MLH Privacy Policy.</a>',
         blank=False,
+        null=False,
+    )
+
+    email_agree = models.BooleanField(
+        help_text="I authorize MLH to send me pre- and post-event informational"
+        " emails, which contain free credit and opportunities from their partners.",
+        blank=True,
+        null=False,
+    )
+
+    data_agree = models.BooleanField(
+        help_text="I consent to IEEE UofT sharing my resume with event sponsors.",
+        blank=True,
         null=False,
     )
 

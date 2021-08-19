@@ -261,7 +261,7 @@ LOGGING = {
 HACKATHON_NAME = "NewHacks"
 CONTACT_EMAIL = DEFAULT_FROM_EMAIL
 
-REGISTRATION_OPEN_DATE = datetime(2021, 9, 17, tzinfo=pytz.timezone(TIME_ZONE))
+REGISTRATION_OPEN_DATE = datetime(2020, 9, 17, tzinfo=pytz.timezone(TIME_ZONE))
 REGISTRATION_CLOSE_DATE = datetime(
     2021, 10, 29, 23, 59, 59, tzinfo=pytz.timezone(TIME_ZONE)
 )
