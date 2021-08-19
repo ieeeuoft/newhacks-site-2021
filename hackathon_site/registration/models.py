@@ -127,9 +127,10 @@ class Application(models.Model):
         null=False,
         help_text="How many hackathons have you been to?",
         choices=HACKATHON_NUMBER_CHOICES,
+        max_length=100,
     )
 
-    what_hackathon_experience = models.CharField(
+    what_hackathon_experience = models.TextField(
         null=False,
         help_text="If you’ve been to a hackathon, briefly tell us your experience. If not, describe what you expect to see and experience.",
         max_length=1000,
@@ -137,13 +138,13 @@ class Application(models.Model):
 
     why_participate = models.TextField(
         null=False,
-        help_text="Why do you want to participate in NewHacks? (1000 char max)",
+        help_text="Why do you want to participate in NewHacks?",
         max_length=1000,
     )
 
     what_technical_experience = models.TextField(
         null=False,
-        help_text="What is your technical experience with software and hardware? (1000 char max)",
+        help_text="What is your technical experience with software and hardware?",
         max_length=1000,
     )
 
