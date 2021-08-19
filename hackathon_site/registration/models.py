@@ -80,7 +80,7 @@ class Application(models.Model):
 
     # User Submitted Fields
     tshirt_size = models.CharField(
-        max_length=50, choices=TSHIRT_SIZE_CHOICES, null=False, default="L"
+        max_length=50, choices=TSHIRT_SIZE_CHOICES, null=False
     )
     birthday = models.DateField(null=False)
     gender = models.CharField(max_length=50, choices=GENDER_CHOICES, null=False)
@@ -126,34 +126,29 @@ class Application(models.Model):
     how_many_hackathons = models.TextField(
         null=False,
         help_text="How many hackathons have you been to?",
-        choices=HACKATHON_NUMBER_CHOICES,
-        default=0
+        choices=HACKATHON_NUMBER_CHOICES
     )
 
     what_hackathon_experience = models.CharField(
         null=False,
         help_text="If you’ve been to a hackathon, briefly tell us your experience. If not, describe what you expect to see and experience.",
-        max_length=1000,
-        default="N/A"
+        max_length=1000
     )
 
     why_participate = models.TextField(
         null=False,
         help_text="Why do you want to participate in NewHacks? (1000 char max)",
-        max_length=1000,
-        default="New hackathon"
+        max_length=1000
     )
 
     what_technical_experience = models.TextField(
         null=False,
         help_text="What is your technical experience with software and hardware? (1000 char max)",
-        max_length=1000,
-        default="N/A"
+        max_length=1000
     )
 
     referral_source = models.TextField(
-        null=False, help_text="How did you hear about NewHacks?", max_length=1000,
-        default="N/A"
+        null=False, help_text="How did you hear about NewHacks?", max_length=1000
     )
     conduct_agree = models.BooleanField(
         help_text="I have read and agree to the "
@@ -170,23 +165,20 @@ class Application(models.Model):
         " and the "
         '<a href="https://mlh.io/privacy">MLH Privacy Policy.</a>',
         blank=False,
-        null=False,
-        default=False
+        null=False
     )
 
     email_agree = models.BooleanField(
         help_text="I authorize MLH to send me pre- and post-event informational"
         " emails, which contain free credit and opportunities from their partners.",
         blank=True,
-        null=False,
-        default=False,
+        null=False
     )
 
     data_agree = models.BooleanField(
         help_text="I consent to IEEE UofT sharing my resume with event sponsors.",
         blank=True,
-        null=False,
-        default=False,
+        null=False
     )
 
     rsvp = models.BooleanField(null=True)
