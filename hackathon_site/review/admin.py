@@ -84,6 +84,8 @@ class ApplicationInline(admin.TabularInline):
         "referral_source",
         "get_resume_link",
         "birthday",
+        "email_agree",
+        "data_agree",
         "get_reviewer_name",
         "get_decision_sent_date",
     )

@@ -110,9 +110,24 @@ class ApplicationForm(forms.ModelForm):
                 attrs={"class": "select2-school-select"},
                 choices=((None, ""),),
             ),
+            "how_many_hackathons": forms.Textarea(
+                attrs={"class": "materialize-textarea", "data-length": 100,}
+            ),
+            "what_hackathon_experience": forms.Textarea(
+                attrs={"class": "materialize-textarea", "data-length": 1000,}
+            ),
+            "why_participate": forms.Textarea(
+                attrs={"class": "materialize-textarea", "data-length": 1000,}
+            ),
+            "what_technical_experience": forms.Textarea(
+                attrs={"class": "materialize-textarea", "data-length": 1000,}
+            ),
+            "referral_source": forms.Textarea(
+                attrs={"class": "materialize-textarea", "data-length": 1000,}
+            ),
             "resume": MaterialFileInput(attrs={"accept": ".pdf"}),
             "phone_number": forms.TextInput(attrs={"placeholder": "+1 (123) 456-7890"}),
-            "graduation_year": forms.NumberInput(attrs={"placeholder": 2020}),
+            "graduation_year": forms.NumberInput(attrs={"placeholder": 2022}),
         }
 
     def __init__(self, *args, **kwargs):
