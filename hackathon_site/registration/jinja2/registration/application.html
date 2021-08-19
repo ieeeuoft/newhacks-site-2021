@@ -40,17 +40,10 @@
     {{ render_field(form.gender, size="s12 m6 select2-wrapper") }}
     {{ render_field(form.ethnicity, size="s12 m6 select2-wrapper") }}
     {{ render_field(form.tshirt_size, size="s12 m6 select2-wrapper") }}
-
-    <div class="col s12">
-        <h4>Address (Optional)</h4>
-        <p>You can provide us your address and we can ship you NewHacks swag! Note that we are only able to ship to Canada, and this does not guarantee that we will be able to send you anything.</p>
-        <br />
-    </div>
-    {{ render_field(form.country, size="m6 s12") }}
+    {{ render_field(form.country, size="s12 m6 select2-wrapper") }}
 
     <div class="col s12">
         <h4>Education</h4>
-        <br />
     </div>
     {{ render_field(form.school, size="s12 m6 select2-wrapper") }}
     {{ render_field(form.study_level, size="s12 m6 select2-wrapper") }}
