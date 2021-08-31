@@ -74,6 +74,7 @@ INSTALLED_APPS = [
     "dj_rest_auth",
     "drf_yasg",
     "import_export",
+    "django_filters",
     "dashboard",
     "registration",
     "event",
@@ -177,6 +178,7 @@ REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
     "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticated"],
     "PAGE_SIZE": 100,
+    "DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend",],
 }
 
 # Internationalization
@@ -254,6 +256,11 @@ LOGGING = {
             "propagate": False,
         },
         "review": {"handlers": ["console", "console_errors"], "propagate": False},
+        "hardware": {
+            "handlers": ["console", "console_errors", "mail_admins"],
+            "level": "ERROR",
+            "propagate": False,
+        },
     },
 }
 
@@ -261,12 +268,15 @@ LOGGING = {
 HACKATHON_NAME = "NewHacks"
 CONTACT_EMAIL = DEFAULT_FROM_EMAIL
 
-REGISTRATION_OPEN_DATE = datetime(2021, 9, 17, tzinfo=pytz.timezone(TIME_ZONE))
+REGISTRATION_OPEN_DATE = datetime(2021, 9, 3, tzinfo=pytz.timezone(TIME_ZONE))
 REGISTRATION_CLOSE_DATE = datetime(
     2021, 10, 29, 23, 59, 59, tzinfo=pytz.timezone(TIME_ZONE)
 )
 EVENT_START_DATE = datetime(2021, 11, 6, 10, 0, 0, tzinfo=pytz.timezone(TIME_ZONE))
 EVENT_END_DATE = datetime(2021, 11, 7, 17, 0, 0, tzinfo=pytz.timezone(TIME_ZONE))
+
+# Registration user requirements
+MINIMUM_AGE = 14
 
 # Registration settings
 ACCOUNT_ACTIVATION_DAYS = 7
@@ -283,8 +293,8 @@ WAITLISTED_ACCEPTANCE_START_TIME = EVENT_START_DATE + timedelta(hours=1)
 FINAL_REVIEW_RESPONSE_DATE = REGISTRATION_CLOSE_DATE + timedelta(days=7)
 
 # Links
-PARTICIPANT_PACKAGE_LINK = "#"
+PARTICIPANT_PACKAGE_LINK = "https://docs.google.com/document/d/10MmMtn-J5iDRS37jschcumz-VlLKzSckHqKeXewj7Ss/edit?usp=sharing"
 
 # Note this is in the form (chat_room_name, chat_room_link)
 # Chat room name is such as the following: Slack, Discord
-CHAT_ROOM = ("Slack", "https://slack.com")
+CHAT_ROOM = ("Discord", "https://discord.gg/sJQ8vDmXN5")
