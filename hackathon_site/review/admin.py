@@ -69,7 +69,7 @@ class ApplicationInline(admin.TabularInline):
         "resume",
         "rsvp",
         "conduct_agree",
-        "data_agree",
+        "resume_sharing",
     )
     readonly_fields = (
         "tshirt_size",
@@ -85,7 +85,7 @@ class ApplicationInline(admin.TabularInline):
         "get_resume_link",
         "birthday",
         "email_agree",
-        "data_agree",
+        "resume_sharing",
         "get_reviewer_name",
         "get_decision_sent_date",
     )

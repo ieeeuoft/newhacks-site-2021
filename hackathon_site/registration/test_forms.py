@@ -99,7 +99,7 @@ class ApplicationFormTestCase(SetupUserMixin, TestCase):
             "conduct_agree": True,
             "logistics_agree": True,
             "email_agree": True,
-            "data_agree": True,
+            "resume_sharing": True,
         }
         self.files = self._build_files()
 
@@ -129,7 +129,7 @@ class ApplicationFormTestCase(SetupUserMixin, TestCase):
         return ApplicationForm(user=user, data=data, files=files)
 
     def test_fields_are_required(self):
-        optional_fields = {"email_agree", "data_agree"}
+        optional_fields = {"email_agree", "resume_sharing"}
         for field in self.data:
             if field in optional_fields:
                 continue
