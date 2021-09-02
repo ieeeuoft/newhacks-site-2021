@@ -114,9 +114,6 @@ class ApplicationForm(forms.ModelForm):
                 attrs={"class": "select2-school-select"},
                 choices=((None, ""),),
             ),
-            "how_many_hackathons": forms.Textarea(
-                attrs={"class": "materialize-textarea", "data-length": 100,}
-            ),
             "what_hackathon_experience": forms.Textarea(
                 attrs={"class": "materialize-textarea", "data-length": 1000,}
             ),
