@@ -105,7 +105,7 @@ class ApplicationForm(forms.ModelForm):
             "conduct_agree",
             "logistics_agree",
             "email_agree",
-            "data_agree",
+            "resume_sharing",
         ]
         widgets = {
             "birthday": forms.DateInput(format="%Y-%m-%d", attrs={"type": "date"}),
@@ -113,9 +113,6 @@ class ApplicationForm(forms.ModelForm):
                 # Choices will be populated by select2
                 attrs={"class": "select2-school-select"},
                 choices=((None, ""),),
-            ),
-            "how_many_hackathons": forms.Textarea(
-                attrs={"class": "materialize-textarea", "data-length": 100,}
             ),
             "what_hackathon_experience": forms.Textarea(
                 attrs={"class": "materialize-textarea", "data-length": 1000,}
