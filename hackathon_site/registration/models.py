@@ -176,7 +176,7 @@ class Application(models.Model):
         null=False,
     )
 
-    data_agree = models.BooleanField(
+    resume_sharing = models.BooleanField(
         help_text="I consent to IEEE UofT sharing my resume with event sponsors.",
         blank=True,
         null=False,

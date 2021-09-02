@@ -45,9 +45,8 @@ class SetupUserMixin:
             "what_technical_experience": "none",
             "referral_source": "friend",
             "conduct_agree": True,
-            "data_agree": True,
             "email_agree": True,
-            "data_agree": True,
+            "resume_sharing": True,
             "logistics_agree": True,
             "resume": "uploads/resumes/my_resume.pdf",
         }
