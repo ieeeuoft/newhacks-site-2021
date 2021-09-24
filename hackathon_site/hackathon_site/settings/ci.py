@@ -20,6 +20,11 @@ and by running your code before you merge it.
 """
 from hackathon_site.settings import *
 
+from captcha.constants import (
+    TEST_PUBLIC_KEY as CAPTCHA_TEST_PUBLIC_KEY,
+    TEST_PRIVATE_KEY as CAPTCHA_TEST_PRIVATE_KEY,
+)
+
 # Convenient for some methods to test, since DEBUG=0 in testing
 IN_TESTING = True
 
@@ -38,3 +43,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 if not os.path.isdir(MEDIA_ROOT):
     os.makedirs(MEDIA_ROOT)
+
+# In testing, captchas should always pass. These are special keys
+# which will allow all verification requests to pass.
+RECAPTCHA_PUBLIC_KEY = CAPTCHA_TEST_PUBLIC_KEY
+RECAPTCHA_PRIVATE_KEY = CAPTCHA_TEST_PRIVATE_KEY
+SILENCED_SYSTEM_CHECKS = ["captcha.recaptcha_test_key_error"]
