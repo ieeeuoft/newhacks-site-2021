@@ -88,6 +88,8 @@ jobs:
           echo 'EMAIL_HOST_PASSWORD=${{ secrets.EMAIL_HOST_PASSWORD }}' >> .env
           echo 'EMAIL_FROM_ADDRESS=${{ secrets.EMAIL_FROM_ADDRESS }}' >> .env
           echo 'REDIS_URI=${{ secrets.REDIS_URI }}' >> .env
+          echo 'RECAPTCHA_PUBLIC_KEY=${{ secrets.RECAPTCHA_PUBLIC_KEY }}' >> .env
+          echo 'RECAPTCHA_PRIVATE_KEY=${{ secrets.RECAPTCHA_PRIVATE_KEY }}' >> .env
       - name: Transfer static files to the Swarm manager
         uses: appleboy/scp-action@v0.1.1
         with:
