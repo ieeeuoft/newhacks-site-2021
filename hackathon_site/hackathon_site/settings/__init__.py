@@ -18,10 +18,6 @@ from pathlib import Path
 import pytz
 
 from django.urls import reverse_lazy
-from captcha.constants import (
-    TEST_PUBLIC_KEY as CAPTCHA_TEST_PUBLIC_KEY,
-    TEST_PRIVATE_KEY as CAPTCHA_TEST_PRIVATE_KEY,
-)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
@@ -68,8 +64,8 @@ RECAPTCHA_DOMAIN = "www.recaptcha.net"
 if DEBUG:
     # These are special keys which will always allow requests to pass
     # verification
-    RECAPTCHA_PUBLIC_KEY = CAPTCHA_TEST_PUBLIC_KEY
-    RECAPTCHA_PRIVATE_KEY = CAPTCHA_TEST_PRIVATE_KEY
+    RECAPTCHA_PUBLIC_KEY = "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
+    RECAPTCHA_PRIVATE_KEY = "6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe"
     SILENCED_SYSTEM_CHECKS = ["captcha.recaptcha_test_key_error"]
 else:
     RECAPTCHA_PUBLIC_KEY = os.environ["RECAPTCHA_PUBLIC_KEY"]
