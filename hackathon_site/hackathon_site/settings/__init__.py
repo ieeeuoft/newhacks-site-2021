@@ -61,15 +61,20 @@ CORS_ALLOW_CREDENTIALS = True
 # reCaptcha settings
 RECAPTCHA_DOMAIN = "www.recaptcha.net"
 
+RECAPTCHA_TEST_PUBLIC_KEY = "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
+RECAPTCHA_TEST_PRIVATE_KEY = "6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe"
+
 if DEBUG:
     # These are special keys which will always allow requests to pass
     # verification
-    RECAPTCHA_PUBLIC_KEY = "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
-    RECAPTCHA_PRIVATE_KEY = "6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe"
+    RECAPTCHA_PUBLIC_KEY = RECAPTCHA_TEST_PUBLIC_KEY
+    RECAPTCHA_PRIVATE_KEY = RECAPTCHA_TEST_PRIVATE_KEY
     SILENCED_SYSTEM_CHECKS = ["captcha.recaptcha_test_key_error"]
 else:
-    RECAPTCHA_PUBLIC_KEY = os.environ["RECAPTCHA_PUBLIC_KEY"]
-    RECAPTCHA_PRIVATE_KEY = os.environ["RECAPTCHA_PRIVATE_KEY"]
+    # If the default test keys are used, the captcha package will create a system
+    # check warning.
+    RECAPTCHA_PUBLIC_KEY = os.environ.get("RECAPTCHA_PUBLIC_KEY", RECAPTCHA_TEST_PUBLIC_KEY)
+    RECAPTCHA_PRIVATE_KEY = os.environ.get("RECAPTCHA_PRIVATE_KEY", RECAPTCHA_TEST_PRIVATE_KEY)
 
 # Application definition
 
