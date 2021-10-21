@@ -6,13 +6,25 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('registration', '0010_auto_20210902_1805'),
+        ("registration", "0010_auto_20210902_1805"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='application',
-            name='how_many_hackathons',
-            field=models.TextField(choices=[(None, ''), ('0', '0'), ('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5 or more', '5 or more')], help_text='How many hackathons have you been to?', max_length=100),
+            model_name="application",
+            name="how_many_hackathons",
+            field=models.TextField(
+                choices=[
+                    (None, ""),
+                    ("0", "0"),
+                    ("1", "1"),
+                    ("2", "2"),
+                    ("3", "3"),
+                    ("4", "4"),
+                    ("5 or more", "5 or more"),
+                ],
+                help_text="How many hackathons have you been to?",
+                max_length=100,
+            ),
         ),
     ]
