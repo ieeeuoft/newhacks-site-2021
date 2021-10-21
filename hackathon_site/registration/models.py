@@ -66,6 +66,7 @@ class Application(models.Model):
 
     HACKATHON_NUMBER_CHOICES = [
         (None, ""),
+        ("0", "0"),
         ("1", "1"),
         ("2", "2"),
         ("3", "3"),
